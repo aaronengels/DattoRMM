@@ -22,7 +22,7 @@ To create API keys goto https://help.aem.autotask.net/en/Content/2SETUP/APIv2.ht
 
 # Release notes
 
-## Version 1.0.0.4
+## Version 1.0.0.5
 
 - Added Get-DrmmAccountSite Function
 - Added Get-DrmmSiteDevices Function
