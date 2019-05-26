@@ -19,7 +19,7 @@ Import-Module DattoRMM -ArgumentList $apiUrl, $apiKey, $apiSecretKey
 # Datto RMM API
 
 How to create API keys goto https://help.aem.autotask.net/en/Content/2SETUP/APIv2.htm for more information.  
-To see the REST API properties goto https://merlot-api.centrastage.net/api/swagger-ui.html#/ for more information.
+For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-ui.html#/ for more information.
 
 # Release notes
 
