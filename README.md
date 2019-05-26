@@ -4,7 +4,7 @@ Install the module from PowerShell Gallery and enter your API keys:
 
 ```powershell
 # Download and install the module
-Install-Module DattoRMM
+Install-Module DattoRMM -Force
 
 # Enter API Url and API keys
 $apiUrl         	=	'<Datto RMM API Url>'
