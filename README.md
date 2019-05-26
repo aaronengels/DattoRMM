@@ -10,6 +10,10 @@ Install-Module DattoRMM
 $apiUrl         	=	'<Datto RMM API URL>'
 $apiKey         	=	'<Datto RMM API Key>'
 $apiSecretKey   	=	'<Datto RMM API Secret Key>'
+
+# Load DattoRMM Module
+Import-Module DattoRMM -ArgumentList $apiUrl, $apiKey, $apiSecretKey 
+
 ```
 
 # Create Datto RMM API keys
