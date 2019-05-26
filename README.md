@@ -1,6 +1,6 @@
 # Basics
 
-Install the module from PowerShell Gallery:
+Install the module from PowerShell Gallery and enter your API keys:
 
 ```powershell
 # Download and install the module
