@@ -6,11 +6,8 @@ function Get-DrmmAccountSites
 Fetches the site records of the authenticated user's account.
 
 .DESCRIPTION
-Returns Site Settings, Device Status and Proxy Settings.
+Returns account site settings, device Status and proxy Settings.
 
-.INPUTS
-
-.OUTPUTS
 Site {
 autotaskCompanyId (string, optional),
 autotaskCompanyName (string, optional),
@@ -39,7 +36,16 @@ type (string, optional) = ['http', 'socks4', 'socks5'],
 username (string, optional)
 }
 
+.PARAMETERS noDeletedDevices
+Do not return the 'Deleted Devices' site settings.
+
 #>
+
+    # Function Parameters
+    Param (
+        [Parameter(Mandatory=$False)]
+        [Switch]$noDeletedDevices
+    )
 
     # Declare Variables
     $apiMethod = 'GET'
@@ -61,6 +67,12 @@ username (string, optional)
     until ($nextPageUrl -eq $null)
 
     # Return all sites except the 'Deleted Devices' site
-    return $Results | where name -ne 'Deleted Devices'
-
+    if ($noDeletedDevices)
+    {    
+        return $Results | where name -ne 'Deleted Devices'
+    }
+    else
+    {
+        return $Results
+    }
 }

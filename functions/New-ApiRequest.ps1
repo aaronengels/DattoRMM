@@ -8,19 +8,29 @@ Makes a API request.
 .DESCRIPTION
 Returns the API response.
 
-.INPUTS
-apiMethod = ['GET','PUT','POST']
-apiRequest = See Datto RMM API swagger UI
-apiRequestBody = Only used with PUT and POST request
+.PARAMETER apiMethod
+Provide API Method GET, PUT or POST
+
+.PARAMETER apiRequest 
+See Datto RMM API swagger UI
+
+.PARAMETER apiRequestBody 
+Only used with PUT and POST request
 
 .OUTPUTS
 API response
 
 #>
-
+    [CmdletBinding()]
 	Param(
+        [Parameter(Mandatory=$True)]
+        [ValidateSet('GET','PUT','POST')]
 		[string]$apiMethod,
+
+        [Parameter(Mandatory=$True)]
 		[string]$apiRequest,
+    
+        [Parameter(Mandatory=$False)]
 		[string]$apiRequestBody
 	)
 

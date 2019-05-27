@@ -1,13 +1,17 @@
-function Get-DrmmSiteDevices
+﻿function Get-DrmmAccountDevices
 {
 
 <#
 .SYNOPSIS
-Fetches the devices records of the site identified by the given site uid.
+Fetches the devices of the authenticated user's account.
 
 .DESCRIPTION
-Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
+Returns account device settings, device type, patch management and UDF's.
 
+DevicesPage {
+devices (Array[Device]),
+pageDetails (PaginationData)
+}
 Device {
 a64Bit (boolean, optional),
 antivirus (Antivirus, optional),
@@ -41,6 +45,11 @@ suspended (boolean, optional),
 udf (Udf, optional),
 uid (string, optional),
 warrantyDate (string, optional)
+}
+PaginationData {
+count (integer, optional),
+nextPageUrl (string, optional),
+prevPageUrl (string, optional)
 }
 Antivirus {
 antivirusProduct (string, optional),
@@ -89,18 +98,8 @@ udf8 (string, optional),
 udf9 (string, optional)
 }
 
-.PARAMMETER siteUid
-Provide site uid wchih will be use to return this site devices.
-
-
 #>
-    # Function Parameters
-    [CmdletBinding()] 
-    Param (
-        [Parameter(Mandatory=$True)] 
-        $siteUid
-    )
-    
+
     # Declare Variables
     $apiMethod = 'GET'
     $maxPage = 50
@@ -110,7 +109,7 @@ Provide site uid wchih will be use to return this site devices.
 
     do 
     {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/devices?max=$maxPage&page=$page" | ConvertFrom-Json
+	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/devices?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response)
 	    {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
@@ -120,7 +119,6 @@ Provide site uid wchih will be use to return this site devices.
     }
     until ($nextPageUrl -eq $null)
 
-    # Return all site devices
+    # Return all account devices
     return $Results
-
 }
