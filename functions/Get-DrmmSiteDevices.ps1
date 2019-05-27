@@ -110,7 +110,7 @@ udf9 (string, optional)
 	    if ($Response)
 	    {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.device
+		    $Results += $Response.devices
 		    $page++
 	    }
     }

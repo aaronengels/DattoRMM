@@ -54,7 +54,7 @@ username (string, optional)
 	    if ($Response)
 	    {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.Site
+		    $Results += $Response.Sites
 		    $page++
 	    }
     }
