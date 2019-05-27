@@ -1,6 +1,23 @@
 function New-ApiAccessToken
 {
-	
+
+<#
+.SYNOPSIS
+Fetches the the API token.
+
+.DESCRIPTION
+Returns the API token.
+
+.INPUTS
+apiUrl = The API URL
+apiKey = The API Key
+apiKeySecret = The API Secret Key
+
+.OUTPUTS
+API Token
+
+#>
+
 	# Specify security protocols
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
 

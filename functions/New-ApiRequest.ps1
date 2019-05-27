@@ -1,5 +1,23 @@
 function New-ApiRequest
 {
+
+<#
+.SYNOPSIS
+Makes a API request.
+
+.DESCRIPTION
+Returns the API response.
+
+.INPUTS
+apiMethod = ['GET','PUT','POST']
+apiRequest = See Datto RMM API swagger UI
+apiRequestBody = Only used with PUT and POST request
+
+.OUTPUTS
+API response
+
+#>
+
 	Param(
 		[string]$apiMethod,
 		[string]$apiRequest,
