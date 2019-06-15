@@ -38,6 +38,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 - Added Get-DrmmAccount Function
 - Added Get-DrmmAccountAlertsOpen Function
 - Added Get-DrmmAccountAlertsResolved Function
+- Added Get-DrmmAccountComponents Function
 - Added Get-DrmmAccountDevices Function
 - Added Get-DrmmAccountUsers Function
 
