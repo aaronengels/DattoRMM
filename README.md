@@ -14,6 +14,15 @@ $apiSecretKey   	=	'<Datto RMM API Secret Key>'
 # Load DattoRMM Module
 Import-Module DattoRMM -ArgumentList $apiUrl, $apiKey, $apiSecretKey 
 
+# Get Devices Patch Status
+ForEach ($Site in Get-DrmmAccountSites -noDeletedDevices)
+{
+    Foreach ($Device in Get-DrmmSiteDevices $Site.uid)
+    {
+        $Device.hostname + " = " + $Device.patchManagement.patchStatus
+    }
+}
+
 ```
 
 # Datto RMM API
