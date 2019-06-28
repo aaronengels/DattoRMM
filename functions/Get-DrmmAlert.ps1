@@ -1,16 +1,12 @@
-﻿function Get-DrmmAccountAlertsOpen {
+function Get-DrmmAlert {
 
 	<#
 	.SYNOPSIS
-	Fetches open alerts of the authenticated user's account
+	Fetches data of the alert identified by the given alert Uid.
 
 	.DESCRIPTION
-	Returns account open alerts.
-
-	AlertsPage {
-	alerts (Array[Alert]),
-	pageDetails (PaginationData)
-	}
+	Returns details of a specific alert.
+	
 	Alert {
 	alertContext (AlertContext, optional),
 	alertMonitorInfo (AlertMonitorInfo, optional),
@@ -26,11 +22,6 @@
 	responseActions (Array[ResponseAction], optional),
 	ticketNumber (string, optional),
 	timestamp (integer, optional)
-	}
-	PaginationData {
-	count (integer, optional),
-	nextPageUrl (string, optional),
-	prevPageUrl (string, optional)
 	}
 	AlertContext {}
 	AlertMonitorInfo {
@@ -50,36 +41,29 @@
 	description (string, optional)
 	}
 
-	.PARAMETER muted
-	Use this switch to show muted alerts
-
+	.PARAMMETER alertUid
+	Provide alert uid which will be use to return alert details.
 	#>
 
-
-    # Function Parameters
+	# Function Parameters
     Param (
-        [Parameter(Mandatory=$False)]
-        [Switch]$muted
+        [Parameter(Mandatory=$True)] 
+        $alertUid
     )
+    
+	# Validate Alert UID
+	if($alertUid.GetType().Name -ne 'String') {
+		return 'The Alert UID is not a String!'
+	}
+	elseif($alertUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
+		return 'The Alert UID format is incorrect!'
+	}
 
-    # Declare Variables
+	# Declare Variables
     $apiMethod = 'GET'
-    $maxPage = 50
-    $nextPageUrl = $null
-    $page = 0
-    $Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/alerts/open?max=$maxPage&page=$page&muted=$muted" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.Alerts
-		    $page++
-	    }
-    }
-    until ($nextPageUrl -eq $null)
-
-    # Return all sites except the 'Deleted Devices' site
-    return $Results
+	# Return all alert details
+	$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid" | ConvertFrom-Json
+	return $Response
 
 }

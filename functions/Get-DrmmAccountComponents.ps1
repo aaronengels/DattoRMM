@@ -1,42 +1,41 @@
-﻿function Get-DrmmAccountComponents
-{
+﻿function Get-DrmmAccountComponents {
 
-<#
-.SYNOPSIS
-Fetches the components records of the authenticated user's account.
+	<#
+	.SYNOPSIS
+	Fetches the components records of the authenticated user's account.
 
-.DESCRIPTION
-Returns account installed components.
+	.DESCRIPTION
+	Returns account installed components.
 
-ComponentsPage {
-components (Array[Component]),
-pageDetails (PaginationData)
-}
-Component {
-categoryCode (string, optional),
-credentialsRequired (boolean, optional),
-description (string, optional),
-id (integer, optional),
-name (string, optional),
-uid (string, optional),
-variables (Array[ComponentVariable], optional)
-}
-PaginationData {
-count (integer, optional),
-nextPageUrl (string, optional),
-prevPageUrl (string, optional)
-}
-ComponentVariable {
-defaultVal (string, optional),
-description (string, optional),
-direction (boolean, optional),
-name (string, optional),
-type (string, optional),
-variablesIdx (integer, optional)
-}
-}
+	ComponentsPage {
+	components (Array[Component]),
+	pageDetails (PaginationData)
+	}
+	Component {
+	categoryCode (string, optional),
+	credentialsRequired (boolean, optional),
+	description (string, optional),
+	id (integer, optional),
+	name (string, optional),
+	uid (string, optional),
+	variables (Array[ComponentVariable], optional)
+	}
+	PaginationData {
+	count (integer, optional),
+	nextPageUrl (string, optional),
+	prevPageUrl (string, optional)
+	}
+	ComponentVariable {
+	defaultVal (string, optional),
+	description (string, optional),
+	direction (boolean, optional),
+	name (string, optional),
+	type (string, optional),
+	variablesIdx (integer, optional)
+	}
+	}
 
-#>
+	#>
 
     # Declare Variables
     $apiMethod = 'GET'
@@ -45,11 +44,9 @@ variablesIdx (integer, optional)
     $page = 0
     $Results = @()
 
-    do 
-    {
+    do {
 	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/components?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response)
-	    {
+	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
 		    $Results += $Response.components
 		    $page++

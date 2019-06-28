@@ -1,22 +1,21 @@
-function New-ApiAccessToken
-{
+function New-ApiAccessToken {
 
-<#
-.SYNOPSIS
-Fetches the the API token.
+	<#
+	.SYNOPSIS
+	Fetches the the API token.
 
-.DESCRIPTION
-Returns the API token.
+	.DESCRIPTION
+	Returns the API token.
 
-.INPUTS
-apiUrl = The API URL
-apiKey = The API Key
-apiKeySecret = The API Secret Key
+	.INPUTS
+	apiUrl = The API URL
+	apiKey = The API Key
+	apiKeySecret = The API Secret Key
 
-.OUTPUTS
-API Token
+	.OUTPUTS
+	API Token
 
-#>
+	#>
 
 	# Specify security protocols
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
@@ -34,12 +33,10 @@ API Token
 	}
 	
 	# Request access token
-	try 
-	{
+	try {
 		(Invoke-WebRequest @params | ConvertFrom-Json).access_token
 	}
-	catch 
-	{
-		$_.Exception
+	catch {
+		$_.Exception.Message
 	}
 }

@@ -1,27 +1,26 @@
-function New-ApiRequest
-{
+function New-ApiRequest {
 
-<#
-.SYNOPSIS
-Makes a API request.
+	<#
+	.SYNOPSIS
+	Makes a API request.
 
-.DESCRIPTION
-Returns the API response.
+	.DESCRIPTION
+	Returns the API response.
 
-.PARAMETER apiMethod
-Provide API Method GET, PUT or POST
+	.PARAMETER apiMethod
+	Provide API Method GET, PUT or POST
 
-.PARAMETER apiRequest 
-See Datto RMM API swagger UI
+	.PARAMETER apiRequest 
+	See Datto RMM API swagger UI
 
-.PARAMETER apiRequestBody 
-Only used with PUT and POST request
+	.PARAMETER apiRequestBody 
+	Only used with PUT and POST request
 
-.OUTPUTS
-API response
+	.OUTPUTS
+	API response
 
-#>
-    [CmdletBinding()]
+	#>
+    
 	Param(
         [Parameter(Mandatory=$True)]
         [ValidateSet('GET','PUT','POST')]
@@ -51,6 +50,10 @@ API response
 	If ($apiRequestBody) {$params.Add('Body',$apiRequestBody)}
 
 	# Make request
-	try {(Invoke-WebRequest @params).Content}
-	catch {Write-Host $_.Exception.Message}
+	try {
+		(Invoke-WebRequest @params).Content
+	}
+	catch {
+		$_.Exception.Message
+	}
 }
