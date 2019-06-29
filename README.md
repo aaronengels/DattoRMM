@@ -32,6 +32,14 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.7
+- Added Get-DrmmAlert Function
+- Added Set-DrmmAlertMute Function
+- Added Set-DrmmAlertResolve Function
+- Added Set-DrmmAlertUnmute Function
+- Added Set-DrmmDeviceUdf Function
+- Added Set-DrmmDeviceWarranty Function
+
 ## Version 1.0.0.6
 
 - Added -NoDeletedDevices Parameter to Get-DrmmSiteDevices to ignore the 'Deleted Devices' site.
