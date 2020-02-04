@@ -6,35 +6,6 @@
 
 	.DESCRIPTION
 	Returns account installed components.
-
-	ComponentsPage {
-	components (Array[Component]),
-	pageDetails (PaginationData)
-	}
-	Component {
-	categoryCode (string, optional),
-	credentialsRequired (boolean, optional),
-	description (string, optional),
-	id (integer, optional),
-	name (string, optional),
-	uid (string, optional),
-	variables (Array[ComponentVariable], optional)
-	}
-	PaginationData {
-	count (integer, optional),
-	nextPageUrl (string, optional),
-	prevPageUrl (string, optional)
-	}
-	ComponentVariable {
-	defaultVal (string, optional),
-	description (string, optional),
-	direction (boolean, optional),
-	name (string, optional),
-	type (string, optional),
-	variablesIdx (integer, optional)
-	}
-	}
-
 	#>
 
     # Declare Variables

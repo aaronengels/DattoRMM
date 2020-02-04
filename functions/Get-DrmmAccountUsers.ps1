@@ -7,27 +7,6 @@
 	.DESCRIPTION
 	Returns account user details.
 
-	{
-	  "pageDetails": {
-		"count": 0,
-		"nextPageUrl": "string",
-		"prevPageUrl": "string"
-	  },
-	  "users": [
-		{
-		  "created": 0,
-		  "disabled": true,
-		  "email": "string",
-		  "firstName": "string",
-		  "lastAccess": 0,
-		  "lastName": "string",
-		  "status": "string",
-		  "telephone": "string",
-		  "username": "string"
-		}
-	  ]
-	}
-
 	#>
 
     # Declare Variables

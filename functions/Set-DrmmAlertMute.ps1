@@ -9,6 +9,7 @@ function Set-DrmmAlertMute {
 
 	.PARAMMETER alertUid
 	Provide alert Uid to mute the alert.
+	
 	#>
 
 	# Function Parameters

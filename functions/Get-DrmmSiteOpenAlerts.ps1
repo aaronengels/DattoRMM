@@ -1,14 +1,11 @@
-function Get-DrmmSiteDevices {
+function Get-DrmmSiteOpenAlerts {
 
 	<#
 	.SYNOPSIS
-	Fetches the devices records of the site identified by the given site uid.
-
-	.DESCRIPTION
-	Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
+	Fetches the open alerts of the site identified by the given site Uid.
 
 	.PARAMMETER siteUid
-	Provide site uid which will be use to return this site devices.
+	Provide site uid which will be used to return device open alerts.
 	
 	#>
     
@@ -17,10 +14,10 @@ function Get-DrmmSiteDevices {
         [Parameter(Mandatory=$True)] 
         $siteUid
     )
-
-	# Validate Site UID
+	
+	# Validate device UID
 	if($siteUid.GetType().Name -ne 'String') {
-		return 'The Site UID is not a string!'
+		return 'The Site UID is not a String!'
 	}
 	elseif($siteUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
 		return 'The Site UID format is incorrect!'
@@ -34,10 +31,10 @@ function Get-DrmmSiteDevices {
     $Results = @()
 
     do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/devices?max=$maxPage&page=$page" | ConvertFrom-Json
+	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/open?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.devices
+		    $Results += $Response.alerts
 		    $page++
 	    }
     }

@@ -6,43 +6,10 @@ function Get-DrmmAlert {
 
 	.DESCRIPTION
 	Returns details of a specific alert.
-	
-	Alert {
-	alertContext (AlertContext, optional),
-	alertMonitorInfo (AlertMonitorInfo, optional),
-	alertSourceInfo (AlertSourceInfo, optional),
-	alertUid (string, optional),
-	autoresolveMins (integer, optional),
-	diagnostics (string, optional),
-	muted (boolean, optional),
-	priority (string, optional) = ['Critical', 'High', 'Moderate', 'Low', 'Information', 'Unknown'],
-	resolved (boolean, optional),
-	resolvedBy (string, optional),
-	resolvedOn (integer, optional),
-	responseActions (Array[ResponseAction], optional),
-	ticketNumber (string, optional),
-	timestamp (integer, optional)
-	}
-	AlertContext {}
-	AlertMonitorInfo {
-	createsTicket (boolean, optional),
-	sendsEmails (boolean, optional)
-	}
-	AlertSourceInfo {
-	deviceName (string, optional),
-	deviceUid (string, optional),
-	siteName (string, optional),
-	siteUid (string, optional)
-	}
-	ResponseAction {
-	actionReference (string, optional),
-	actionTime (integer, optional),
-	actionType (string, optional) = ['EMAIL_SENT', 'EMAIL_SEND_ERROR', 'TICKET_PENDING', 'TICKET_CREATED', 'TICKET_CREATION_ERROR', 'TICKET_CLOSED_CALL'],
-	description (string, optional)
-	}
 
 	.PARAMMETER alertUid
 	Provide alert uid which will be use to return alert details.
+
 	#>
 
 	# Function Parameters

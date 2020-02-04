@@ -7,34 +7,6 @@ function Get-DrmmAccountSites {
 	.DESCRIPTION
 	Returns account site settings, device Status and proxy Settings.
 
-	Site {
-	autotaskCompanyId (string, optional),
-	autotaskCompanyName (string, optional),
-	description (string, optional),
-	devicesStatus (DevicesStatus, optional),
-	id (integer, optional),
-	name (string, optional),
-	notes (string, optional),
-	onDemand (boolean, optional),
-	portalUrl (string, optional),
-	proxySettings (ProxySettings, optional),
-	splashtopAutoInstall (boolean, optional),
-	uid (string, optional): Unique alphanumeric UID of this site ,
-	accountUid (string, optional): Unique alphanumeric UID of the account to which this site belongs
-	}
-	DevicesStatus {
-	numberOfDevices (integer, optional),
-	numberOfOfflineDevices (integer, optional),
-	numberOfOnlineDevices (integer, optional)
-	}
-	ProxySettings {
-	host (string, optional),
-	password (string, optional),
-	port (integer, optional),
-	type (string, optional) = ['http', 'socks4', 'socks5'],
-	username (string, optional)
-	}
-
 	.PARAMETERS noDeletedDevices
 	Do not return the 'Deleted Devices' site settings.
 
