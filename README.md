@@ -32,6 +32,20 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.8
+- Added New-DrmmSite
+- Added Set-DrmmSite
+- Added Set-DrmmSiteProxy
+- Added Set-DrmmSiteResolvedAlerts
+- Added Set-DrmmSiteOpenAlerts
+- Added Get-DrmmSiteSettings
+- Added Get-DrmmDeviceResolvesAlerts
+- Added Get-DrmmDeviceOpenAlerts
+- Added Get-DrmmDeviceQuickJob
+- Added Get-DrmmJobStatus
+- Added Move-DrmmDeviceToSite
+- Added Remove-DrmmSiteProxy
+
 ## Version 1.0.0.7
 - Added Get-DrmmAlert Function
 - Added Set-DrmmAlertMute Function
@@ -53,8 +67,8 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 ## Version 1.0.0.5
 
-- Added Get-DrmmAccountSites Function
 - Added Get-DrmmSiteDevices Function
+- Added Get-DrmmAccountSites Function
 - Added New-ApiRequest Function
 - Added New-ApiAccessToken Function
 
