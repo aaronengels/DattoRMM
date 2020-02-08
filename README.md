@@ -32,6 +32,9 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.9
+- Added Get-DrmmDeviceAudit
+
 ## Version 1.0.0.8
 - Added New-DrmmSite
 - Added Set-DrmmSite
