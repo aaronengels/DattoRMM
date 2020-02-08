@@ -7,7 +7,7 @@ function Get-DrmmDeviceAudit {
 	.DESCRIPTION
 	Returns attaced devices, baseBoard, bios, displays, logicalDisks, mobileInfo, nics, processors, snmpInfo, systemInfo, videoBoards.
 
-	.PARAMMETER deviceUid
+	.PARAMETER deviceUid
 	Provide device uid which will be used to return device audit data.
 	
 	#>
