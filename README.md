@@ -39,7 +39,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 - Updated New-ApiAccessToken - Added error handeling.
 - Updated New-ApiRequest - Removed global variables.
 - Updated New-ApiRequest - Added delay when 600 request/minute reached.
-- Updated Set-DrmmSiteProxy - Made host,port and type mandatory.
+- Updated Set-DrmmSiteProxy - Made host,port and type mandatory. 
 
 ## Version 1.0.0.8
 - Added New-DrmmSite
