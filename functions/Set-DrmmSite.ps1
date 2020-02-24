@@ -2,16 +2,16 @@ function Set-DrmmSite {
 
 	<#
 	.SYNOPSIS
-	Creates a new site in the authenticated user's account.
+	Updates a new site in the authenticated user's account.
 
 	.PARAMETER siteUid
 	Provide site uid which will be used to update proxy settings.
 
 	.PARAMETER siteName
-	provide sitename.
+	Provide sitename.
 
 	.PRAMETER siteDescription
-	Provice site description.
+	Provide site description.
 
 	.PARAMETER siteNotes
 	Provide site notes.
@@ -19,7 +19,7 @@ function Set-DrmmSite {
 	.PARAMETER onDemand
 	Will mark site as a on demand site
 
-	.PARARMETER splashtopAutoInstall
+	.PARAMETER splashtopAutoInstall
 	Will switch on autoinstall spashtop.
 
 	#>
@@ -45,14 +45,6 @@ function Set-DrmmSite {
         [Parameter(Mandatory=$False)] 
         [switch]$splashtopAutoInstall
     )
-
-	# Validate Site UID
-	if($siteUid.GetType().Name -ne 'String') {
-		return 'The Site UID is not a String!'
-	}
-	elseif($siteUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Site UID format is incorrect!'
-	}	
 
 	# Declare Variables
 	$apiMethod = 'POST'

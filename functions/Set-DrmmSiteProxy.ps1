@@ -2,18 +2,26 @@ function Set-DrmmSiteProxy {
 
 	<#
 	.SYNOPSIS
-	Creates/updates the proxy settings for the site identified by the given site Uid.
+	Updates the proxy settings for the site identified by the given site Uid.
 
 	.PARAMETER siteUid
 	Provide site uid which will be used to update proxy settings.
 
-	.PARAMETER proxySettings
-	Provide proxysettings:	 
-		 host(string,optional)
-		 password(string,optional)
-		 port(string,optional)
-		 type(string,optional)=['http','socks4','socks5']
-		 username(string,optional)
+	.PARAMETER host
+	Proxy host name (IP Address or URL).
+
+	.PARAMETER port
+	Proxy port. 
+
+	.PARAMETER type
+	Proxy type (HTTP, Socks4, or Socks5). 
+
+	.PARAMETER username
+	Proxy username.
+
+	.PARAMETER password
+	Proxy password
+
 	#>
 
 	# Function Parameters
@@ -21,25 +29,39 @@ function Set-DrmmSiteProxy {
         [Parameter(Mandatory=$True)] 
         $siteUid,
 
+        [Parameter(Mandatory=$True)] 
+        $host,
+
+        [Parameter(Mandatory=$True)] 
+        $port,
+
+	    [Parameter(Mandatory=$True)]
+		[ValidateSet('HTTP','Socks4','Socks5')]
+        $type,
+
         [Parameter(Mandatory=$False)] 
-        $proxySettings
+        $username,
+
+		[Parameter(Mandatory=$False)] 
+        $password
 
     )
-	
-	# Validate Site UID
-	if($siteUid.GetType().Name -ne 'String') {
-		return 'The Site UID is not a String!'
-	}
-	elseif($siteUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Site UID format is incorrect!'
-	}
 
 	# Declare Variables
 	$apiMethod = 'PUT'
 	$Results = @()
+	$proxySettings = @{}
+	
+	# Add proxy details
+	$proxySettings.Add('host',$host)
+	$proxySettings.Add('port',$port)
+	$proxySettings.Add('type',$type)
+	If ($PSBoundParameters.ContainsKey('username')) {$proxySettings.Add('username',$username)}
+	If ($PSBoundParameters.ContainsKey('password')) {$proxySettings.Add('password',$password)}
+
 
 	# Convert to JSON
-	$Body = $proxySettings| ConvertTo-Json
+	$Body = $proxySettings | ConvertTo-Json
 
 
 	# Update UDFs

@@ -33,10 +33,14 @@ function New-ApiAccessToken {
 	}
 	
 	# Request access token
-	try {
+	try 
+	{
 		(Invoke-WebRequest @params | ConvertFrom-Json).access_token
 	}
-	catch {
-		$_.Exception.Message
+	catch 
+	{
+		Write-Host $_.Exception.Message
+		Exit
 	}
+
 }

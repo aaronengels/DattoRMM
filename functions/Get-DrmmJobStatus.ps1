@@ -7,7 +7,7 @@ function Get-DrmmJobStatus {
 	.DESCRIPTION
 	Returns job and including the status. Can be used to see the job status when running a quickjob using the API. 
 
-	.PARAMMETER jobUid
+	.PARAMETER jobUid
 	Provide job uid which will be used to return job data.
 	
 	#>
@@ -17,14 +17,6 @@ function Get-DrmmJobStatus {
         [Parameter(Mandatory=$True)] 
         $jobUid
     )
-	
-	# Validate device UID
-	if($jobUid.GetType().Name -ne 'String') {
-		return 'The Job UID is not a String!'
-	}
-	elseif($jobUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Job UID format is incorrect!'
-	}
 	
     # Declare Variables
     $apiMethod = 'GET'

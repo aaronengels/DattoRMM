@@ -7,7 +7,7 @@ function Set-DrmmAlertMute {
 	.DESCRIPTION
 	Mute and alert providing the alert Uid.
 
-	.PARAMMETER alertUid
+	.PARAMETER alertUid
 	Provide alert Uid to mute the alert.
 	
 	#>
@@ -18,14 +18,6 @@ function Set-DrmmAlertMute {
         $alertUid
     )
 	
-	# Validate Alert Uid
-	if($alertUid.GetType().Name -ne 'String') {
-		return 'The Alert UID is not a String!'
-	}
-	elseif($alertUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Alert UID format is incorrect!'
-	}
-
 	# Declare Variables
 		$apiMethod = 'POST'
 

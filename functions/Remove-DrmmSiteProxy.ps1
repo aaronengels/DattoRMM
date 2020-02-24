@@ -15,14 +15,6 @@ function Remove-DrmmSiteProxy {
         $siteUid
     )
 	
-	# Validate device UID
-	if($siteUid.GetType().Name -ne 'String') {
-		return 'The Site UID is not a String!'
-	}
-	elseif($siteUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Site UID format is incorrect!'
-	}
-
 	# Declare Variables
 	$apiMethod = 'DELETE'
 	$Results = @()

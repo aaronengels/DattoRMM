@@ -5,9 +5,9 @@ function New-DrmmSite {
 	Creates a new site in the authenticated user's account.
 
 	.PARAMETER siteName
-	provide sitename.
+	Provide sitename.
 
-	.PRAMETER siteDescription
+	.PARAMETER siteDescription
 	Provice site description.
 
 	.PARAMETER siteNotes
@@ -16,7 +16,7 @@ function New-DrmmSite {
 	.PARAMETER onDemand
 	Will mark site as a on demand site.
 
-	.PARARMETER splashtopAutoInstall
+	.PARAMETER splashtopAutoInstall
 	Will switch on autoinstall spashtop.
 
 	#>

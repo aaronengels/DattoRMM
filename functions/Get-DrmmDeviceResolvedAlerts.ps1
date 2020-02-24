@@ -7,7 +7,7 @@ function Get-DrmmDeviceResolvedAlerts {
 	.DESCRIPTION
 	Returns the resolved alerts of a particular device.
 
-	.PARAMMETER deviceUid
+	.PARAMETER deviceUid
 	Provide device uid which will be used to return device resolved alerts.
 	
 	#>
@@ -18,17 +18,9 @@ function Get-DrmmDeviceResolvedAlerts {
         $deviceUid
     )
 	
-	# Validate device UID
-	if($deviceUid.GetType().Name -ne 'String') {
-		return 'The Device UID is not a String!'
-	}
-	elseif($deviceUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Device UID format is incorrect!'
-	}
-	
     # Declare Variables
     $apiMethod = 'GET'
-    $maxPage = 50
+    $maxPage = 250
     $nextPageUrl = $null
     $page = 0
     $Results = @()

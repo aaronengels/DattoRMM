@@ -35,24 +35,20 @@
 # Root Module Parameters
 [CmdletBinding()]
 Param(
-  [Parameter(
-	Position = 0
-  )]
-  [String]
-  $global:apiUrl,
+  [Parameter(Position = 0, Mandatory=$True)]
+  $Url,
     
-  [Parameter(
-	Position = 1
-  )]
-  [String]
-  $global:apiKey,
+  [Parameter(Position = 1, Mandatory=$True)]
+  $Key,
 
-  [Parameter(
-	Position = 2
-  )]
-  [String]
-  $global:apiSecretKey
+  [Parameter(Position = 2, Mandatory=$True)]
+  $SecretKey
 )
+
+# Declare Module Variables
+New-Variable -Name apiUrl -Value $Url -Scope Script -Force
+New-Variable -Name apiKey -Value $Key -Scope Script -Force
+New-Variable -Name apiSecretKey -Value $SecretKey -Scope Script -Force
 
 # Import functions
 $Functions = @( Get-ChildItem -Path $PSScriptRoot\functions\*.ps1 -ErrorAction SilentlyContinue ) 
@@ -67,4 +63,3 @@ foreach ($Import in @($Functions))
     throw "Could not import function $($Import.fullname): $_"
   }
 }
-

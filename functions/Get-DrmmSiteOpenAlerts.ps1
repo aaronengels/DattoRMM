@@ -4,7 +4,7 @@ function Get-DrmmSiteOpenAlerts {
 	.SYNOPSIS
 	Fetches the open alerts of the site identified by the given site Uid.
 
-	.PARAMMETER siteUid
+	.PARAMETER siteUid
 	Provide site uid which will be used to return device open alerts.
 	
 	#>
@@ -15,17 +15,9 @@ function Get-DrmmSiteOpenAlerts {
         $siteUid
     )
 	
-	# Validate device UID
-	if($siteUid.GetType().Name -ne 'String') {
-		return 'The Site UID is not a String!'
-	}
-	elseif($siteUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Site UID format is incorrect!'
-	}
-	
     # Declare Variables
     $apiMethod = 'GET'
-    $maxPage = 50
+    $maxPage = 250
     $nextPageUrl = $null
     $page = 0
     $Results = @()

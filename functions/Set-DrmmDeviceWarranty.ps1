@@ -10,7 +10,7 @@ function Set-DrmmDeviceUdf {
 	warrantyDate (string, optional)
 	}
 
-	.PARAMMETER deviceUid
+	.PARAMETER deviceUid
 	Provide device uid which will be used to set the warranty field 
 
 	.PARAMETER warranty
@@ -26,14 +26,6 @@ function Set-DrmmDeviceUdf {
         [Parameter(Mandatory=$True)] 
         $warranty
     )
-	
-	# Validate device UID
-	if($deviceUid.GetType().Name -ne 'String') {
-		return 'The Device UID is not a String!'
-	}
-	elseif($deviceUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Device UID format is incorrect!'
-	}
 
 	# Declare Variables
 		$apiMethod = 'POST'

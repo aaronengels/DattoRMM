@@ -1,11 +1,8 @@
-function Get-DrmmSiteDevices {
+function Get-DrmmAuditDeviceSoftware {
 
 	<#
 	.SYNOPSIS
-	Fetches the devices records of the site identified by the given site uid.
-
-	.DESCRIPTION
-	Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
+	Fetches audited software of the generic device identified the given device Uid.
 
 	.PARAMETER siteUid
 	Provide site uid which will be use to return this site devices.
@@ -15,9 +12,9 @@ function Get-DrmmSiteDevices {
 	# Function Parameters
     Param (
         [Parameter(Mandatory=$True)] 
-        $siteUid
+        $deviceUid
     )
-	
+
     # Declare Variables
     $apiMethod = 'GET'
     $maxPage = 250
@@ -26,7 +23,7 @@ function Get-DrmmSiteDevices {
     $Results = @()
 
     do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/devices?max=$maxPage&page=$page" | ConvertFrom-Json
+	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/$deviceUid/software?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
 		    $Results += $Response.devices
@@ -35,7 +32,7 @@ function Get-DrmmSiteDevices {
     }
     until ($nextPageUrl -eq $null)
 
-    # Return all site devices
+    # Return all sdevice software entries
     return $Results
 
 }

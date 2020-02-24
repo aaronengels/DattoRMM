@@ -7,20 +7,21 @@ function Get-DrmmAccountSites {
 	.DESCRIPTION
 	Returns account site settings, device Status and proxy Settings.
 
-	.PARAMETERS noDeletedDevices
+	.PARAMETER noDeletedDevices
 	Do not return the 'Deleted Devices' site settings.
 
 	#>
 
     # Function Parameters
     Param (
-        [Parameter(Mandatory=$False)]
+        
+		[Parameter(Mandatory=$False)]
         [Switch]$noDeletedDevices
     )
 
     # Declare Variables
     $apiMethod = 'GET'
-    $maxPage = 50
+    $maxPage = 250
     $nextPageUrl = $null
     $page = 0
     $Results = @()

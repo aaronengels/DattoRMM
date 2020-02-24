@@ -21,7 +21,7 @@
 
     # Declare Variables
     $apiMethod = 'GET'
-    $maxPage = 50
+    $maxPage = 250
     $nextPageUrl = $null
     $page = 0
     $Results = @()

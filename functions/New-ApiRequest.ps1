@@ -33,7 +33,7 @@ function New-ApiRequest {
 		[string]$apiRequestBody
 	)
 
-    #Get API Token
+    # Get API Token
     $apiAccessToken = New-ApiAccessToken
 
 	# Define parameters for Invoke-WebRequest cmdlet
@@ -50,10 +50,41 @@ function New-ApiRequest {
 	If ($apiRequestBody) {$params.Add('Body',$apiRequestBody)}
 
 	# Make request
-	try {
+	try 
+	{
 		(Invoke-WebRequest @params).Content
 	}
-	catch {
-		$_.Exception.Message
+	catch
+	{
+		switch ($_.Exception.Message)
+		{
+			'The remote server returned an error: (400) Bad Request.'
+			{
+				throw '400 - Bad Request.'
+			}
+			
+			'The remote server returned an error: (401) Unauthorized.'
+			{
+				throw '401 - Unauthorized, please check your credentials.'
+			}
+			
+			'The remote server returned an error: (429).' 
+			{
+				Write-Host '429 - API rate limit breached, sleeping for 60 seconds'
+				Start-Sleep -Seconds 60
+			}
+			
+			'The remote server returned an error: (403) Forbidden.'
+			{
+				Write-Host '403 - AWS DDOS protection breached, sleeping for 5 minutes'
+				Start-Sleep -Seconds 300
+			}
+			default
+			{
+				Write-Host $_.Exception.Message
+				Exit
+			}
+
+		}
 	}
 }

@@ -198,14 +198,6 @@ function Set-DrmmDeviceUdf {
 		[Parameter(Mandatory=$False)]
 		$udf30
     )
-	
-	# Validate device UID
-	if($deviceUid.GetType().Name -ne 'String') {
-		return 'The Device UID is not a String!'
-	}
-	elseif($deviceUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Device UID format is incorrect!'
-	}
 
 	# Declare Variables
 		$apiMethod = 'POST'

@@ -10,7 +10,7 @@ function Set-DrmmDeviceQuickJob {
 	.PARAMETER deviceUid
 	Provide device uid which will be used to run the quickjob.
 
-	.PRAMETER jobName
+	.PARAMETER jobName
 	Provide name of the quick job.
 
 	.PARAMETER variables 

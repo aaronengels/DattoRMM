@@ -7,7 +7,7 @@ function Get-DrmmAlert {
 	.DESCRIPTION
 	Returns details of a specific alert.
 
-	.PARAMMETER alertUid
+	.PARAMETER alertUid
 	Provide alert uid which will be use to return alert details.
 
 	#>
@@ -18,14 +18,6 @@ function Get-DrmmAlert {
         $alertUid
     )
     
-	# Validate Alert UID
-	if($alertUid.GetType().Name -ne 'String') {
-		return 'The Alert UID is not a String!'
-	}
-	elseif($alertUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Alert UID format is incorrect!'
-	}
-
 	# Declare Variables
     $apiMethod = 'GET'
 
