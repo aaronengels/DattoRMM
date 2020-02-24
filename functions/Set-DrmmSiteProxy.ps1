@@ -14,13 +14,13 @@ function Set-DrmmSiteProxy {
 	Proxy port. 
 
 	.PARAMETER type
-	Proxy type (HTTP, Socks4, or Socks5). 
+	Proxy type (http, socks4, or socks5). 
 
 	.PARAMETER username
 	Proxy username.
 
 	.PARAMETER password
-	Proxy password
+	Proxy password.
 
 	#>
 
@@ -36,7 +36,7 @@ function Set-DrmmSiteProxy {
         $port,
 
 	    [Parameter(Mandatory=$True)]
-		[ValidateSet('HTTP','Socks4','Socks5')]
+		[ValidateSet('http','socks4','socks5')]
         $type,
 
         [Parameter(Mandatory=$False)] 

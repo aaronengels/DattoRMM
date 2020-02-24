@@ -58,16 +58,7 @@ function New-ApiRequest {
 	{
 		switch ($_.Exception.Message)
 		{
-			'The remote server returned an error: (400) Bad Request.'
-			{
-				throw '400 - Bad Request.'
-			}
-			
-			'The remote server returned an error: (401) Unauthorized.'
-			{
-				throw '401 - Unauthorized, please check your credentials.'
-			}
-			
+	
 			'The remote server returned an error: (429).' 
 			{
 				Write-Host '429 - API rate limit breached, sleeping for 60 seconds'
@@ -82,7 +73,6 @@ function New-ApiRequest {
 			default
 			{
 				Write-Host $_.Exception.Message
-				Exit
 			}
 
 		}

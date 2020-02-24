@@ -55,13 +55,13 @@ function Set-DrmmSite {
 	$updateSiteRequest.Add('name',$siteName)
 	If ($PSBoundParameters.ContainsKey('siteDescription')) {$updateSiteRequest.Add('description',$siteDescription)}
 	If ($PSBoundParameters.ContainsKey('siteNotes')) {$updateSiteRequest.Add('notes',$siteNotes)}
-	If ($PSBoundParameters.ContainsKey('onDemand')) {$updateSiteRequest.Add('onDemand',$onDemand)}
-	If ($PSBoundParameters.ContainsKey('plashtopAutoInstall')) {$updateSiteRequest.Add('dplashtopAutoInstall',$plashtopAutoInstall)}
+	If ($PSBoundParameters.ContainsKey('onDemand')) {$updateSiteRequest.Add('onDemand',$True)}
+	If ($PSBoundParameters.ContainsKey('splashtopAutoInstall')) {$updateSiteRequest.Add('splashtopAutoInstall',$True)}
 
 	# Convert to JSON
 	$Body = $updateSiteRequest | ConvertTo-Json
 
-	# Update UDFs
+	# Create Site and return results
 	$Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" -apiRequestBody $Body | ConvertFrom-Json
 	return $Results
 

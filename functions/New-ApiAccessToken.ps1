@@ -40,7 +40,6 @@ function New-ApiAccessToken {
 	catch 
 	{
 		Write-Host $_.Exception.Message
-		Exit
 	}
 
 }
