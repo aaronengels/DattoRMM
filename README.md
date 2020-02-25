@@ -3,8 +3,8 @@
 Install the module from PowerShell Gallery and enter your API keys:
 
 ```powershell
-# Download and install the module
-Install-Module DattoRMM
+# Download and silently install the module
+Install-Module DattoRMM -Force
 
 # Enter API Url and API keys
 $apiUrl         	=	'<Datto RMM API Url>'
@@ -33,11 +33,11 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 # Release notes
 
 ## Version 1.0.0.13
-- Set-DrmmSiteProxy - Fixed JSON request issue
-- Remove-DrmmSiteProxy - Fixed JSON request issue
+- Set-DrmmSiteProxy - Fixed JSON request issue.
+- Remove-DrmmSiteProxy - Fixed JSON request issue.
 
 ## Version 1.0.0.12
-- Set-DrmmSiteProxy - Updated function parameters
+- Set-DrmmSiteProxy - Updated function parameters.
 
 ## Version 1.0.0.11
 - New-DrmmSite - Fixed issue when using onDemand switch.
