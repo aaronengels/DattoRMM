@@ -30,14 +30,14 @@ function Set-DrmmSiteProxy {
         $siteUid,
 
         [Parameter(Mandatory=$True)] 
-        $host,
+        $proxyHost,
 
         [Parameter(Mandatory=$True)] 
-        $port,
+        $proxyPort,
 
 	    [Parameter(Mandatory=$True)]
 		[ValidateSet('http','socks4','socks5')]
-        $type,
+        $proxyType,
 
         [Parameter(Mandatory=$False)] 
         $username,
@@ -53,9 +53,9 @@ function Set-DrmmSiteProxy {
 	$proxySettings = @{}
 	
 	# Add proxy details
-	$proxySettings.Add('host',$host)
-	$proxySettings.Add('port',$port)
-	$proxySettings.Add('type',$type)
+	$proxySettings.Add('host',$proxyHost)
+	$proxySettings.Add('port',$proxyPort)
+	$proxySettings.Add('type',$proxyType)
 	If ($PSBoundParameters.ContainsKey('username')) {$proxySettings.Add('username',$username)}
 	If ($PSBoundParameters.ContainsKey('password')) {$proxySettings.Add('password',$password)}
 
