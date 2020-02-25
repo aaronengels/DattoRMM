@@ -56,7 +56,10 @@ function New-ApiRequest {
 	}
 	catch
 	{
-		switch ($_.Exception.Message)
+		
+		$exceptionError = $_.Exception.Message
+		
+		switch ($exceptionError)
 		{
 	
 			'The remote server returned an error: (429).' 
@@ -72,7 +75,7 @@ function New-ApiRequest {
 			}
 			default
 			{
-				Write-Host $_.Exception.Message
+				Write-Host $exceptionError
 			}
 
 		}

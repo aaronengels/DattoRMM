@@ -37,6 +37,6 @@ function Set-DrmmDeviceUdf {
 	# Convert to JSON
 	$Body = $Warranty | ConvertTo-Json
 
-	# Update UDFs
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/warranty" -apiRequestBody $Body
+	# Update Warranty
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/warranty" -apiRequestBody $Body
 }

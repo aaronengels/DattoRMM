@@ -22,7 +22,6 @@ function Get-DrmmDevice {
     $apiMethod = 'GET'
     
 	# Return device data
-    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid" | ConvertFrom-Json
-	return $Response
+    return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid" | ConvertFrom-Json
 
 }

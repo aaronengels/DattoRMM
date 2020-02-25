@@ -22,7 +22,5 @@ function Get-DrmmJobStatus {
     $apiMethod = 'GET'
     
 	# Return device data
-    $Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/job/$jobUid" | ConvertFrom-Json
-	return $Results
-
+    return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/job/$jobUid" | ConvertFrom-Json
 }

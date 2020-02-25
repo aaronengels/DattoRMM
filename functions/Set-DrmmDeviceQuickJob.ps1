@@ -31,14 +31,6 @@ function Set-DrmmDeviceQuickJob {
 
     )
 	
-	# Validate device UID
-	if($deviceUid.GetType().Name -ne 'String') {
-		return 'The Device UID is not a String!'
-	}
-	elseif($deviceUid -notmatch '[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}') {
-		return 'The Device UID format is incorrect!'
-	}
-
 	# Declare Variables
 	$apiMethod = 'PUT'
 	$jobComponent = @{}
@@ -65,7 +57,6 @@ function Set-DrmmDeviceQuickJob {
 	$Body = $quickJobRequest | ConvertTo-Json
 
 	# Update UDFs
-	$Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/quickjob" -apiRequestBody $Body | ConvertFrom-Json
-	return $Results
+	return $Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/quickjob" -apiRequestBody $Body | ConvertFrom-Json
 
 }

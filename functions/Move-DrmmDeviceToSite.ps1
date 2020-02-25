@@ -24,7 +24,7 @@ function Move-DrmmDeviceToSite {
 	# Declare Variables
 	$apiMethod = 'PUT'
 
-	# Update UDFs
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/site/$siteUid"
+	# Reqeust device move
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/site/$siteUid"
 
 }

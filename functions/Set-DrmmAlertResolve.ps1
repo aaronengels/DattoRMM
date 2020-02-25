@@ -22,6 +22,6 @@ function Set-DrmmAlertResolve {
 		$apiMethod = 'POST'
 
 	# Resolve Alert
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/resolve"
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/resolve"
 
 }

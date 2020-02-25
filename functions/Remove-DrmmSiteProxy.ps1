@@ -20,7 +20,6 @@ function Remove-DrmmSiteProxy {
 	$Results = @()
 
 	# Update UDFs
-	$Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/setting/proxy" | ConvertFrom-Json
-	return $Results
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/settings/proxy" | ConvertFrom-Json
 
 }

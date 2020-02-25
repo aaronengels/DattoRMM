@@ -19,7 +19,6 @@ function Get-DrmmSite {
     $apiMethod = 'GET'
     
 	# Return device data
-    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" | ConvertFrom-Json
-	return $Response
+    return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" | ConvertFrom-Json
 
 }

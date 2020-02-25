@@ -14,6 +14,6 @@ function Get-DrmmAccount {
     $Results = @()
 	
 	# Return all account settings
-	return $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/" | ConvertFrom-Json
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/" | ConvertFrom-Json
 
 }

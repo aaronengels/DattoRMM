@@ -239,5 +239,5 @@ function Set-DrmmDeviceUdf {
 	$Body = $Udfs | ConvertTo-Json
 
 	# Update UDFs
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/udf" -apiRequestBody $Body
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/udf" -apiRequestBody $Body
 }

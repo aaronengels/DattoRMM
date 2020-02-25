@@ -22,7 +22,6 @@ function Get-DrmmAlert {
     $apiMethod = 'GET'
 
 	# Return all alert details
-	$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid" | ConvertFrom-Json
-	return $Response
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid" | ConvertFrom-Json
 
 }

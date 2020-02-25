@@ -62,7 +62,6 @@ function Set-DrmmSite {
 	$Body = $updateSiteRequest | ConvertTo-Json
 
 	# Create Site and return results
-	$Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" -apiRequestBody $Body | ConvertFrom-Json
-	return $Results
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" -apiRequestBody $Body | ConvertFrom-Json
 
 }

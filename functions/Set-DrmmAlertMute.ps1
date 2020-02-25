@@ -22,6 +22,6 @@ function Set-DrmmAlertMute {
 		$apiMethod = 'POST'
 
 	# Mute Alert
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/mute"
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/mute"
 
 }

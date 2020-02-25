@@ -20,6 +20,6 @@ function Get-DrmmAuditDevice {
     $Results = @()
 	
 	# Return device audit
-	return $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid" | ConvertFrom-Json
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid" | ConvertFrom-Json
 
 }

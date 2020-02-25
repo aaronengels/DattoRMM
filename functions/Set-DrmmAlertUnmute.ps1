@@ -22,6 +22,6 @@ function Set-DrmmAlertUnmute {
 	$apiMethod = 'POST'
 
 	# Unmute Alert
-	New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/unmute"
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/unmute"
 
 }
