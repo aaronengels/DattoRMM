@@ -1,4 +1,4 @@
-function Set-DrmmDeviceUdf {
+function Set-DrmmDeviceWarranty {
 
 	<#
 	.SYNOPSIS
@@ -10,10 +10,10 @@ function Set-DrmmDeviceUdf {
 	warrantyDate (string, optional)
 	}
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which will be used to set the warranty field 
 
-	.PARAMETER warranty
+	.PARAMETER Warranty
 	Provide value for the warranty field
 
 	#>

@@ -7,7 +7,7 @@
 	.DESCRIPTION
 	Returns account open alerts.
 
-	.PARAMETER muted
+	.PARAMETER Muted
 	Use this switch to show muted alerts
 
 	#>

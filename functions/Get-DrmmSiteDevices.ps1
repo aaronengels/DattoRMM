@@ -7,7 +7,7 @@ function Get-DrmmSiteDevices {
 	.DESCRIPTION
 	Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be use to return this site devices.
 	
 	#>

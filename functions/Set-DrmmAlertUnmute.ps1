@@ -7,7 +7,7 @@ function Set-DrmmAlertUnmute {
 	.DESCRIPTION
 	Resume alert providing the alert Uid.
 
-	.PARAMETER alertUid
+	.PARAMETER AlertUid
 	Provide alert Uid to unmute the alert.
 	
 	#>

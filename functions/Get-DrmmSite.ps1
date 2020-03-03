@@ -4,7 +4,7 @@ function Get-DrmmSite {
 	.SYNOPSIS
 	Fetches data of the site (including total number of devices) identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to return device data.
 	
 	#>

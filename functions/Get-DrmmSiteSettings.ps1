@@ -4,7 +4,7 @@ function Get-DrmmSiteSettings {
 	.SYNOPSIS
 	Fetches data of the site (including total number of devices) identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to return device data.
 	
 	#>
@@ -18,7 +18,7 @@ function Get-DrmmSiteSettings {
     # Declare Variables
     $apiMethod = 'GET'
     
-	# Return device data
+	# Return Site Settings
     return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/settings" | ConvertFrom-Json
 
 }

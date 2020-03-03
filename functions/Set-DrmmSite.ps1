@@ -4,22 +4,22 @@ function Set-DrmmSite {
 	.SYNOPSIS
 	Updates a new site in the authenticated user's account.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to update proxy settings.
 
-	.PARAMETER siteName
+	.PARAMETER SiteName
 	Provide sitename.
 
-	.PRAMETER siteDescription
+	.PRAMETER SiteDescription
 	Provide site description.
 
-	.PARAMETER siteNotes
+	.PARAMETER SiteNotes
 	Provide site notes.
 	
-	.PARAMETER onDemand
+	.PARAMETER OnDemand
 	Will mark site as a on demand site
 
-	.PARAMETER splashtopAutoInstall
+	.PARAMETER SplashtopAutoInstall
 	Will switch on autoinstall spashtop.
 
 	#>
@@ -49,7 +49,6 @@ function Set-DrmmSite {
 	# Declare Variables
 	$apiMethod = 'POST'
 	$updateSiteRequest = @{}
-	$Results = @()
 
 	# Create update site request
 	$updateSiteRequest.Add('name',$siteName)

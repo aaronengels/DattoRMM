@@ -7,7 +7,7 @@ function Get-DrmmDeviceResolvedAlerts {
 	.DESCRIPTION
 	Returns the resolved alerts of a particular device.
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which will be used to return device resolved alerts.
 	
 	#>

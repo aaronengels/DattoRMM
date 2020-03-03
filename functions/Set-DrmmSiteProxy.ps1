@@ -4,22 +4,22 @@ function Set-DrmmSiteProxy {
 	.SYNOPSIS
 	Updates the proxy settings for the site identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to update proxy settings.
 
-	.PARAMETER proxyHost
+	.PARAMETER ProxyHost
 	Proxy host name (IP Address or URL).
 
-	.PARAMETER proxyPort
+	.PARAMETER ProxyPort
 	Proxy port. 
 
-	.PARAMETER proxyType
+	.PARAMETER ProxyType
 	Proxy type (http, socks4, or socks5). 
 
-	.PARAMETER proxyUsername
+	.PARAMETER ProxyUsername
 	Proxy username.
 
-	.PARAMETER proxyPassword
+	.PARAMETER ProxyPassword
 	Proxy password.
 
 	#>
@@ -49,7 +49,6 @@ function Set-DrmmSiteProxy {
 
 	# Declare Variables
 	$apiMethod = 'POST'
-	$Results = @()
 	$proxySettings = @{}
 	
 	# Add proxy details

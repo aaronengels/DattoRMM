@@ -7,7 +7,7 @@ function Get-DrmmJobStatus {
 	.DESCRIPTION
 	Returns job and including the status. Can be used to see the job status when running a quickjob using the API. 
 
-	.PARAMETER jobUid
+	.PARAMETER JobUid
 	Provide job uid which will be used to return job data.
 	
 	#>

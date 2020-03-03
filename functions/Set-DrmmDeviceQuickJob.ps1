@@ -7,14 +7,14 @@ function Set-DrmmDeviceQuickJob {
 	.DESCRIPTION
 	Will run a quickjob on a given device and return the Job uid, name and variables used.
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which will be used to run the quickjob.
 
-	.PARAMETER jobName
+	.PARAMETER JobName
 	Provide name of the quick job.
 
-	.PARAMETER variables 
-	Provide variables names and values.
+	.PARAMETER Variables 
+	Provide variables names and values, must be a hash.
 
 	#>
 
@@ -36,7 +36,6 @@ function Set-DrmmDeviceQuickJob {
 	$jobComponent = @{}
 	$quickJobRequest = @{}
 	$componentUid = ''
-	$Results = @()
 
 	# Get Component Uid
 	ForEach ($Component in Get-DrmmAccountComponents)
@@ -57,6 +56,6 @@ function Set-DrmmDeviceQuickJob {
 	$Body = $quickJobRequest | ConvertTo-Json
 
 	# Update UDFs
-	return $Results = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/quickjob" -apiRequestBody $Body | ConvertFrom-Json
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/quickjob" -apiRequestBody $Body | ConvertFrom-Json
 
 }

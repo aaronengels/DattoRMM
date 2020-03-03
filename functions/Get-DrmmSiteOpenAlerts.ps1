@@ -4,7 +4,7 @@ function Get-DrmmSiteOpenAlerts {
 	.SYNOPSIS
 	Fetches the open alerts of the site identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to return device open alerts.
 	
 	#>
@@ -32,7 +32,7 @@ function Get-DrmmSiteOpenAlerts {
     }
     until ($nextPageUrl -eq $null)
 
-    # Return all site devices
+    # Return all site open alerts
     return $Results
 
 }

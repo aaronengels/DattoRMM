@@ -7,13 +7,13 @@ function New-ApiRequest {
 	.DESCRIPTION
 	Returns the API response.
 
-	.PARAMETER apiMethod
+	.PARAMETER ApiMethod
 	Provide API Method GET, PUT or POST
 
-	.PARAMETER apiRequest 
+	.PARAMETER ApiRequest 
 	See Datto RMM API swagger UI
 
-	.PARAMETER apiRequestBody 
+	.PARAMETER ApiRequestBody 
 	Only used with PUT and POST request
 
 	.OUTPUTS
@@ -32,9 +32,6 @@ function New-ApiRequest {
         [Parameter(Mandatory=$False)]
 		[string]$apiRequestBody
 	)
-
-    # Get API Token
-    $apiAccessToken = New-ApiAccessToken
 
 	# Define parameters for Invoke-WebRequest cmdlet
 	$params = [ordered] @{

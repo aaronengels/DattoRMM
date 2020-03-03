@@ -32,6 +32,9 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.14
+- Set-DrmmDeviceUdf - Fixed typo
+
 ## Version 1.0.0.13
 - Set-DrmmSiteProxy - Fixed JSON request issue.
 - Remove-DrmmSiteProxy - Fixed JSON request issue.

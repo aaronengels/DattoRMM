@@ -7,7 +7,7 @@ function Get-DrmmAlert {
 	.DESCRIPTION
 	Returns details of a specific alert.
 
-	.PARAMETER alertUid
+	.PARAMETER AlertUid
 	Provide alert uid which will be use to return alert details.
 
 	#>

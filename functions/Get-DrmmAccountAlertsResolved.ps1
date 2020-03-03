@@ -7,7 +7,7 @@
 	.DESCRIPTION
 	Returns account resolved alerts.
 
-	.PARAMETER muted
+	.PARAMETER Muted
 	Use this switch to only show muted alerts
 
 	#>

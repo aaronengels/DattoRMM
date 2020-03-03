@@ -4,7 +4,7 @@ function Get-DrmmSiteResolvedAlerts {
 	.SYNOPSIS
 	Fetches the resolved alerts of the device identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to return device resolved alerts.
 	
 	#>
@@ -32,7 +32,7 @@ function Get-DrmmSiteResolvedAlerts {
     }
     until ($nextPageUrl -eq $null)
 
-    # Return all site devices
+    # Return all site resolved alerts
     return $Results
 
 }

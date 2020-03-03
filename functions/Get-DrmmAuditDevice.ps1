@@ -4,7 +4,7 @@ function Get-DrmmAuditDevice {
 	.SYNOPSIS
 	Fetches audit data of the generic device identified the given device Uid.
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which will be used to set the warranty field 
 	
 	#>
@@ -17,7 +17,6 @@ function Get-DrmmAuditDevice {
 
     # Declare Variables
     $apiMethod = 'GET'
-    $Results = @()
 	
 	# Return device audit
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid" | ConvertFrom-Json

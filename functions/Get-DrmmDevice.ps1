@@ -7,7 +7,7 @@ function Get-DrmmDevice {
 	.DESCRIPTION
 	Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which will be used to return device data.
 	
 	#>

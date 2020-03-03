@@ -4,10 +4,10 @@ function Move-DrmmDeviceToSite {
 	.SYNOPSIS
 	Moves a device from one site to another site.
 
-	.PARAMETER deviceUid
+	.PARAMETER DeviceUid
 	Provide device uid which of device you woul dlike to move.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be use to move the device to.
 
 	#>

@@ -7,7 +7,7 @@ function Get-DrmmAccountSites {
 	.DESCRIPTION
 	Returns account site settings, device Status and proxy Settings.
 
-	.PARAMETER noDeletedDevices
+	.PARAMETER NoDeletedDevices
 	Do not return the 'Deleted Devices' site settings.
 
 	#>

@@ -4,7 +4,7 @@ function Remove-DrmmSiteProxy {
 	.SYNOPSIS
 	Deletes site proxy settings for the site identified by the given site Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be used to update proxy settings.
 
 	#>
@@ -17,9 +17,8 @@ function Remove-DrmmSiteProxy {
 	
 	# Declare Variables
 	$apiMethod = 'DELETE'
-	$Results = @()
 
-	# Update UDFs
+	# Remove proxy settings
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/settings/proxy" | ConvertFrom-Json
 
 }

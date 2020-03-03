@@ -7,7 +7,7 @@ function Set-DrmmAlertMute {
 	.DESCRIPTION
 	Mute and alert providing the alert Uid.
 
-	.PARAMETER alertUid
+	.PARAMETER AlertUid
 	Provide alert Uid to mute the alert.
 	
 	#>

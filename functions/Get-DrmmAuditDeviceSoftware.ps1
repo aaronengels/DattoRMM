@@ -4,7 +4,7 @@ function Get-DrmmAuditDeviceSoftware {
 	.SYNOPSIS
 	Fetches audited software of the generic device identified the given device Uid.
 
-	.PARAMETER siteUid
+	.PARAMETER SiteUid
 	Provide site uid which will be use to return this site devices.
 	
 	#>

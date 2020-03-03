@@ -104,7 +104,7 @@ function Set-DrmmDeviceUdf {
 	#>
 
 	# Function Parameters
-    Param (
+    Param(
         [Parameter(Mandatory=$True)] 
         $deviceUid,
 

@@ -45,10 +45,13 @@ Param(
   $SecretKey
 )
 
+
+
 # Declare Module Variables
 New-Variable -Name apiUrl -Value $Url -Scope Script -Force
 New-Variable -Name apiKey -Value $Key -Scope Script -Force
 New-Variable -Name apiSecretKey -Value $SecretKey -Scope Script -Force
+
 
 # Import functions
 $Functions = @( Get-ChildItem -Path $PSScriptRoot\functions\*.ps1 -ErrorAction SilentlyContinue ) 
@@ -63,3 +66,8 @@ foreach ($Import in @($Functions))
     throw "Could not import function $($Import.fullname): $_"
   }
 }
+
+
+# Get API Token
+$accessToken = New-ApiAccessToken
+New-Variable -Name apiAccessToken -value $accessToken -Scope Script -Force
