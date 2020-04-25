@@ -12,7 +12,7 @@ $apiKey         	=	'<Datto RMM API Key>'
 $apiSecretKey   	=	'<Datto RMM API Secret Key>'
 
 # Load DattoRMM Module
-Import-Module DattoRMM -Force-ArgumentList
+Import-Module DattoRMM -Force
 
 # Set API Parameters
 Set-ApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
