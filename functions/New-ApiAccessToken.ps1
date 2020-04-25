@@ -36,6 +36,7 @@ function New-ApiAccessToken {
 	try 
 	{
 		(Invoke-WebRequest @params | ConvertFrom-Json).access_token
+
 	}
 	catch 
 	{

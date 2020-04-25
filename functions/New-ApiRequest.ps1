@@ -61,14 +61,18 @@ function New-ApiRequest {
 	
 			'The remote server returned an error: (429).' 
 			{
-				Write-Host '429 - API rate limit breached, sleeping for 60 seconds'
+				Write-Host 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
 				Start-Sleep -Seconds 60
 			}
 			
 			'The remote server returned an error: (403) Forbidden.'
 			{
-				Write-Host '403 - AWS DDOS protection breached, sleeping for 5 minutes'
+				Write-Host 'New-ApiRequest : AWS DDOS protection breached, sleeping for 5 minutes'
 				Start-Sleep -Seconds 300
+			}
+			'The remote server returned an error: (404) Not Found.'
+			{
+				Write-Host "New-ApiRequest : $apiRequest not found!"
 			}
 			default
 			{

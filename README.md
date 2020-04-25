@@ -12,7 +12,10 @@ $apiKey         	=	'<Datto RMM API Key>'
 $apiSecretKey   	=	'<Datto RMM API Secret Key>'
 
 # Load DattoRMM Module
-Import-Module DattoRMM -ArgumentList $apiUrl, $apiKey, $apiSecretKey 
+Import-Module DattoRMM -Force-ArgumentList
+
+# Set API Parameters
+Set-ApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
 
 # Get Devices Patch Status
 ForEach ($Site in Get-DrmmAccountSites -noDeletedDevices)
@@ -32,19 +35,23 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.16
+- Updated Get-DrmmAuditDeviceSoftware - Fixed API Url
+- Created Set-ApiParameters - You can now import the module first and add API parameters later
+
 ## Version 1.0.0.14
-- Set-DrmmDeviceUdf - Fixed typo
+- Updated Set-DrmmDeviceUdf - Fixed typo
 
 ## Version 1.0.0.13
-- Set-DrmmSiteProxy - Fixed JSON request issue.
-- Remove-DrmmSiteProxy - Fixed JSON request issue.
+- Updated Set-DrmmSiteProxy - Fixed JSON request issue.
+- Updated Remove-DrmmSiteProxy - Fixed JSON request issue.
 
 ## Version 1.0.0.12
-- Set-DrmmSiteProxy - Updated function parameters.
+- Updated Set-DrmmSiteProxy - Updated function parameters.
 
 ## Version 1.0.0.11
-- New-DrmmSite - Fixed issue when using onDemand switch.
-- Set-DrmmSite - Fixed issue when using onDemand switch.
+- Updated New-DrmmSite - Fixed issue when using onDemand switch.
+- Updated Set-DrmmSite - Fixed issue when using onDemand switch.
 
 ## Version 1.0.0.10
 - Added Get-DrmmAuditDevice

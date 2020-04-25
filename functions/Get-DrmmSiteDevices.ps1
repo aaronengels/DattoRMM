@@ -14,10 +14,11 @@ function Get-DrmmSiteDevices {
     
 	# Function Parameters
     Param (
-        [Parameter(Mandatory=$True)] 
-        $siteUid
+        [Parameter(Mandatory=$True)]
+		[ValidatePattern('[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}')]
+        [String]$siteUid
     )
-	
+
     # Declare Variables
     $apiMethod = 'GET'
     $maxPage = 250
