@@ -16,6 +16,11 @@ function New-ApiRequest {
 	.PARAMETER ApiRequestBody 
 	Only used with PUT and POST request
 
+    .INPUTS
+	$apiUrl = The API URL
+	$apiKey = The API Key
+	$apiKeySecret = The API Secret Key
+
 	.OUTPUTS
 	API response
 
@@ -32,6 +37,12 @@ function New-ApiRequest {
         [Parameter(Mandatory=$False)]
 		[string]$apiRequestBody
 	)
+
+	# Check API Parameters
+	if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
+		Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
+		return
+	}
 
 	# Define parameters for Invoke-WebRequest cmdlet
 	$params = [ordered] @{
@@ -76,7 +87,7 @@ function New-ApiRequest {
 			}
 			default
 			{
-				Write-Host $exceptionError
+				Write-Host "$exceptionError"
 			}
 
 		}

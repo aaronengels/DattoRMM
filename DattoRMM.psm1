@@ -59,5 +59,5 @@ foreach ($Import in @($Functions)){
 
 # Set API parameters
 If ($apiUrl -and $apiKey -and $apiSecretKey) {
-	Set-ApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
+	Set-DrmmApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
 }

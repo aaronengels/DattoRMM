@@ -8,14 +8,20 @@ function New-ApiAccessToken {
 	Returns the API token.
 
 	.INPUTS
-	apiUrl = The API URL
-	apiKey = The API Key
-	apiKeySecret = The API Secret Key
+	$apiUrl = The API URL
+	$apiKey = The API Key
+	$apiKeySecret = The API Secret Key
 
 	.OUTPUTS
 	API Token
 
 	#>
+
+	# Check API Parameters
+	if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
+		Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
+		return
+	}
 
 	# Specify security protocols
 	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
