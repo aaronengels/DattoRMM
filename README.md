@@ -36,7 +36,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 # Release notes
 
 ## Version 1.0.0.18
-- Added Set-ApiParameters - You can now import the module first and add API parameters later.
+- Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
 - Updated Get-DrmmAuditDeviceSoftware - Fixed API Request Url.
 - Updated Set-DrmmDeviceUdf - Fixed API Request Url.
 - Updated Set-DrmmSiteProxy - Fixed JSON request issue.
