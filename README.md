@@ -23,11 +23,11 @@ $params = @{
 Set-DrmmApiParameters @params
 
 # Get Devices Patch Status
-ForEach ($Site in Get-DrmmAccountSites -noDeletedDevices)
+ForEach ($site in Get-DrmmAccountSites -noDeletedDevices)
 {
-    Foreach ($Device in Get-DrmmSiteDevices $Site.uid)
+    Foreach ($device in Get-DrmmSiteDevices $site.uid)
     {
-        $Device.hostname + " = " + $Device.patchManagement.patchStatus
+        $device.hostname + " = " + $device.patchManagement.patchStatus
     }
 }
 
