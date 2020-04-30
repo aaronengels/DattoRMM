@@ -1,6 +1,6 @@
 # About
 
-This module is created to make it easier to use the DattoRMM API in your PowerShell scripts. As all the hard work is done,
+This module is designed to make it easier to use the DattoRMM API in your PowerShell scripts. As all the hard work is done,
 you can develop your scripts faster. There is no need to go through a big learning curve spending lots of time working out 
 how to use the Datto RMM API. Simply load the module, enter your API keys and get results within minutes!
 
@@ -43,6 +43,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 ## Version 1.0.0.19
 - Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
+- Added Add-DrmmAlertMessage - Add a alert message based on the alert context provided by the API.
 - Updated Get-DrmmAuditDeviceSoftware - Fixed API Request Url.
 - Updated Set-DrmmDeviceUdf - Fixed API Request Url.
 - Updated Set-DrmmSiteProxy - Fixed JSON request issue.
