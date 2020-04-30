@@ -9,8 +9,8 @@ of time working out how to use the Datto RMM API. Simply load the module, enter 
 Install the module from PowerShell Gallery and enter your API keys:
 
 ```powershell
-# Download and silently install the module
-Install-Module DattoRMM -Force
+# Load module
+Import-Module DattoRMM -Force
 
 # Provide DRMM API keys
 $params = @{
