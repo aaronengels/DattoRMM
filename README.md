@@ -12,16 +12,15 @@ Install the module from PowerShell Gallery and enter your API keys:
 # Download and silently install the module
 Install-Module DattoRMM -Force
 
-# Enter API Url and API keys
-$apiUrl        =  '<Datto RMM API Url>'
-$apiKey        =  '<Datto RMM API Key>'
-$apiSecretKey  =  '<Datto RMM API Secret Key>'
-
-# Load DattoRMM Module
-Import-Module DattoRMM -Force
+# Provide DRMM API keys
+$params = @{
+	Url         	=	'https://merlot-api.centrastage.net'
+	Key         	=	'6SFOM2L97HPS7K81P8G8BL2543KS5CO2'
+	SecretKey   	=	'484TRJRC6N9C6KKSTLRTMR4N94TETMR5'
+}
 
 # Set API Parameters
-Set-DrmmApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
+Set-DrmmApiParameters @params
 
 # Get Devices Patch Status
 ForEach ($Site in Get-DrmmAccountSites -noDeletedDevices)
