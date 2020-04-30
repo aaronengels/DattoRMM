@@ -14,9 +14,9 @@ Install-Module DattoRMM -Force
 
 # Provide DRMM API keys
 $params = @{
-    Url ='https://merlot-api.centrastage.net'
-    Key = '6SFOM2L97HPS7K81P8G8BL2543KS5CO2'
-    SecretKey = '484TRJRC6N9C6KKSTLRTMR4N94TETMR5'
+    Url        =  '<Datto RMM API Url>'
+    Key        =  '<Datto RMM API Key>'
+    SecretKey  =  '<Datto RMM API Secret Key>'
 }
 
 # Set API Parameters
