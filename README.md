@@ -50,7 +50,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 - Updated Set-DrmmSiteProxy - Updated function parameters.
 - Updated New-DrmmSite - Fixed issue when using onDemand switch.
 - Updated Set-DrmmSite - Fixed issue when using onDemand switch.
-- Updated Get-ApiAccessToken - Adjusted security protocols
+- Updated New-ApiAccessToken - Adjusted security protocols
 
 ## Version 1.0.0.10
 - Added Get-DrmmAuditDevice
