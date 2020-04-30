@@ -24,7 +24,8 @@ function New-ApiAccessToken {
 	}
 
 	# Specify security protocols
-	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+	# [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls11,Tls12'
 
 	# Convert password to secure string
 	$securePassword = ConvertTo-SecureString -String 'public' -AsPlainText -Force

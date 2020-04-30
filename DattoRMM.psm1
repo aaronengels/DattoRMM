@@ -61,3 +61,4 @@ foreach ($Import in @($Functions)){
 If ($apiUrl -and $apiKey -and $apiSecretKey) {
 	Set-DrmmApiParameters -Url $apiUrl -Key $apiKey -SecretKey $apiSecretKey
 }
+

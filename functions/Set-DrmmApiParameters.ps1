@@ -1,4 +1,4 @@
-function Set-DrmmApiParameters{
+function Set-DrmmApiParameters {
 	<#
 	.SYNOPSIS
 	Sets the API Parameters used throughout the module.
