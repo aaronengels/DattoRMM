@@ -12,7 +12,7 @@ Install the module from PowerShell Gallery and enter your API keys:
 # Load module
 Import-Module DattoRMM -Force
 
-# Provide DRMM API keys
+# Provide API Parameters
 $params = @{
     Url        =  '<Datto RMM API Url>'
     Key        =  '<Datto RMM API Key>'
