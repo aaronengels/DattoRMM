@@ -1,11 +1,11 @@
-function Get-DrmmAuditDevice {
+function Get-DrmmAuditESXi {
 
 	<#
 	.SYNOPSIS
 	Fetches audit data of the generic device identified the given device Uid.
 
 	.PARAMETER DeviceUid
-	Provide device uid which will be used to get the device audit 
+	Provide device uid which will be used to get the ESXi audit data
 	
 	#>
     
@@ -19,6 +19,6 @@ function Get-DrmmAuditDevice {
     $apiMethod = 'GET'
 	
 	# Return device audit
-	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid" | ConvertFrom-Json
+	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/esxihost/$deviceUid" | ConvertFrom-Json
 
 }
