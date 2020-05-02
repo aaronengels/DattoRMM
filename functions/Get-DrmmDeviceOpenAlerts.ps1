@@ -15,7 +15,8 @@ function Get-DrmmDeviceOpenAlerts {
 	# Function Parameters
     Param (
         [Parameter(Mandatory=$True)] 
-        $deviceUid
+		[ValidatePattern('[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}')]
+        [string]$deviceUid
     )
 	
     # Declare Variables

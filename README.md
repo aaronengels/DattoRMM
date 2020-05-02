@@ -40,7 +40,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
-## Version 1.0.0.20
+## Version 1.0.0.21
 - Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
 - Added Add-DrmmAlertMessage - Add a alert message based on the alert context provided by the API.
 - Added Get-DrmmAuditESXi - To get audit data from ESXi hosts
