@@ -28,7 +28,7 @@ function New-ApiRequest {
     
 	Param(
         [Parameter(Mandatory=$True)]
-        [ValidateSet('GET','PUT','POST')]
+        [ValidateSet('GET','PUT','POST','DELETE')]
 		[string]$apiMethod,
 
         [Parameter(Mandatory=$True)]
