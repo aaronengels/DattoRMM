@@ -27,14 +27,14 @@ function New-ApiRequest {
 	#>
     
 	Param(
-        [Parameter(Mandatory=$True)]
-        [ValidateSet('GET','PUT','POST')]
+		[Parameter(Mandatory = $True)]
+		[ValidateSet('GET', 'PUT', 'POST', 'DELETE')]
 		[string]$apiMethod,
 
-        [Parameter(Mandatory=$True)]
+		[Parameter(Mandatory = $True)]
 		[string]$apiRequest,
     
-        [Parameter(Mandatory=$False)]
+		[Parameter(Mandatory = $False)]
 		[string]$apiRequestBody
 	)
 
@@ -55,46 +55,38 @@ function New-ApiRequest {
 	}
 
 	# Add body to parameters if present
-	If ($apiRequestBody) {$params.Add('Body',$apiRequestBody)}
+	If ($apiRequestBody) { $params.Add('Body', $apiRequestBody) }
 
 	# Make request
-	try 
-	{
+	try {
 		(Invoke-WebRequest @params).Content
 	}
-	catch
-	{
+	catch {
 		
 		$exceptionError = $_.Exception.Message
 		
-		switch ($exceptionError)
-		{
+		switch ($exceptionError) {
 	
-			'The remote server returned an error: (429).' 
-			{
+			'The remote server returned an error: (429).' {
 				Write-Host 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
 				Start-Sleep -Seconds 60
 			}
 
-			'The remote server returned an error: (403) Forbidden.'
-			{
+			'The remote server returned an error: (403) Forbidden.' {
 				Write-Host 'New-ApiRequest : AWS DDOS protection breached, sleeping for 5 minutes'
 				Start-Sleep -Seconds 300
 			}
 
-			'The remote server returned an error: (404) Not Found.'
-			{
+			'The remote server returned an error: (404) Not Found.' {
 				Write-Host "New-ApiRequest : $apiRequest not found!"
 			}
 
-			'The remote server returned an error: (504) Gateway Timeout.'
-			{
+			'The remote server returned an error: (504) Gateway Timeout.' {
 				Write-Host "New-ApiRequest :  Gateway Timeout, sleeping for 60 seconds"
 				Start-Sleep -Seconds 60
 			}
 
-			default
-			{
+			default {
 				Write-Host "$exceptionError"
 			}
 
