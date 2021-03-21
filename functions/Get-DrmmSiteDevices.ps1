@@ -26,15 +26,15 @@ function Get-DrmmSiteDevices {
     $page = 0
     $Results = @()
 
-    do {
+	$results =    do {
 	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/devices?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.devices
+		$Response.devices
 		    $page++
 	    }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all site devices
     return $Results

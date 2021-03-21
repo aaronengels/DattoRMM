@@ -1,6 +1,6 @@
 function Get-DrmmSiteResolvedAlerts {
 
-	<#
+    <#
 	.SYNOPSIS
 	Fetches the resolved alerts of the device identified by the given site Uid.
 
@@ -9,9 +9,9 @@ function Get-DrmmSiteResolvedAlerts {
 	
 	#>
     
-	# Function Parameters
+    # Function Parameters
     Param (
-        [Parameter(Mandatory=$True)] 
+        [Parameter(Mandatory = $True)] 
         $siteUid
     )
 	
@@ -22,15 +22,15 @@ function Get-DrmmSiteResolvedAlerts {
     $page = 0
     $Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/resolved?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.alerts
-		    $page++
-	    }
+    $results = do {
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/resolved?max=$maxPage&page=$page" | ConvertFrom-Json
+        if ($Response) {
+            $nextPageUrl = $Response.pageDetails.nextPageUrl
+            $Response.alerts
+            $page++
+        }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all site resolved alerts
     return $Results

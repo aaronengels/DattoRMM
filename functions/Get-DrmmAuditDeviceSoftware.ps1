@@ -22,15 +22,15 @@ function Get-DrmmAuditDeviceSoftware {
     $page = 0
     $Results = @()
 
-    do {
+   $results = do {
 	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid/software?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.devices
+		$Response.devices
 		    $page++
 	    }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all sdevice software entries
     return $Results

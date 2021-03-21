@@ -1,6 +1,6 @@
 function Get-DrmmSiteOpenAlerts {
 
-	<#
+    <#
 	.SYNOPSIS
 	Fetches the open alerts of the site identified by the given site Uid.
 
@@ -9,9 +9,9 @@ function Get-DrmmSiteOpenAlerts {
 	
 	#>
     
-	# Function Parameters
+    # Function Parameters
     Param (
-        [Parameter(Mandatory=$True)] 
+        [Parameter(Mandatory = $True)] 
         $siteUid
     )
 	
@@ -22,15 +22,15 @@ function Get-DrmmSiteOpenAlerts {
     $page = 0
     $Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/open?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.alerts
-		    $page++
-	    }
+    $results = do {
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/open?max=$maxPage&page=$page" | ConvertFrom-Json
+        if ($Response) {
+            $nextPageUrl = $Response.pageDetails.nextPageUrl
+            $Response.alerts
+            $page++
+        }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all site open alerts
     return $Results

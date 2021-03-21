@@ -13,30 +13,30 @@ function Get-DrmmDeviceOpenAlerts {
 	#>
     
 	# Function Parameters
-    Param (
-        [Parameter(Mandatory=$True)] 
+	Param (
+		[Parameter(Mandatory = $True)] 
 		[ValidatePattern('[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}')]
-        [string]$deviceUid
-    )
+		[string]$deviceUid
+	)
 	
-    # Declare Variables
-    $apiMethod = 'GET'
-    $maxPage = 250
-    $nextPageUrl = $null
-    $page = 0
-    $Results = @()
+	# Declare Variables
+	$apiMethod = 'GET'
+	$maxPage = 250
+	$nextPageUrl = $null
+	$page = 0
+	$Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/alerts/open?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.alerts
-		    $page++
-	    }
-    }
-    until ($nextPageUrl -eq $null)
+	$results = do {
+		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/alerts/open?max=$maxPage&page=$page" | ConvertFrom-Json
+		if ($Response) {
+			$nextPageUrl = $Response.pageDetails.nextPageUrl
+			$Response.alerts
+			$page++
+		}
+	}
+	until ($null -eq $nextPageUrl)
 
-    # Return all site devices
-    return $Results
+	# Return all site devices
+	return $Results
 
 }
