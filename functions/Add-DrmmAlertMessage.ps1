@@ -9,14 +9,14 @@ function Add-DrmmAlertMessage {
 
 	#>
 
-    # Function Parameters
+	# Function Parameters
 	Param (
-        [Parameter(ValueFromPipeline=$true)]
-        $alert
-    )
+		[Parameter(ValueFromPipeline = $true)]
+		$alert
+	)
 
 	# Add Alert Message
-	switch($alert.alertContext.'@class') {	
+	switch ($alert.alertContext.'@class') {	
 		
 		'antivirus_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Antivirus'
@@ -32,7 +32,6 @@ function Add-DrmmAlertMessage {
 
 		'comp_script_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Component'
-			$statusName = $alert.alertContext.samples.psobject.properties.name
 			$statusValue = $alert.alertContext.samples.psobject.properties.value
 			$message = "{0}" -f $statusValue
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertMessage' -Value $message
@@ -70,14 +69,14 @@ function Add-DrmmAlertMessage {
 
 		'perf_resource_usage_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Performance'
-			if($alert.alertContext.type -eq 'CPU')
-				{$message = "CPU reached {0}%" -f $alert.alertContext.percentage
+			if ($alert.alertContext.type -eq 'CPU') {
+				$message = "CPU reached {0}%" -f $alert.alertContext.percentage
 			}
-			if($alert.alertContext.type -eq 'MEMORY')
-				{$message = "Memory reached {0}%" -f $alert.alertContext.percentage
+			if ($alert.alertContext.type -eq 'MEMORY') {
+				$message = "Memory reached {0}%" -f $alert.alertContext.percentage
 			}
-			if($alert.alertContext.type -eq 'SNMP_THROUGHPUT')
-				{$message = "SNMP thoughput reached {0}%" -f $alert.alertContext.percentage
+			if ($alert.alertContext.type -eq 'SNMP_THROUGHPUT') {
+				$message = "SNMP thoughput reached {0}%" -f $alert.alertContext.percentage
 			}
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertMessage' -Value $message
 		}
@@ -91,11 +90,11 @@ function Add-DrmmAlertMessage {
 
 		'process_resource_usage_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Process'
-			if($alert.alertContext.type -eq 'CPU')
-				{$message = "Process {0} CPU reached {1}%" -f $alert.alertContext.processName, [math]::Round($alert.alertContext.sample)
+			if ($alert.alertContext.type -eq 'CPU') {
+				$message = "Process {0} CPU reached {1}%" -f $alert.alertContext.processName, [math]::Round($alert.alertContext.sample)
 			}
-			if($alert.alertContext.type -eq 'MEMORY')
-				{$message = "Process {0} memory reached {1}%" -f $alert.alertContext.processName, [math]::Round($alert.alertContext.sample)
+			if ($alert.alertContext.type -eq 'MEMORY') {
+				$message = "Process {0} memory reached {1}%" -f $alert.alertContext.processName, [math]::Round($alert.alertContext.sample)
 			}
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertMessage' -Value $message
 		}
@@ -108,32 +107,34 @@ function Add-DrmmAlertMessage {
 
 		'sec_management_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Webroot'
-			$message = "Webroot {0}. " -f $alert.alertContext.status
-			if($alert.alertContext.virusName){
-				$message += "Found {0} virus. " -f $alert.alertContext.virusName
+			$message = @"
+			Webroot $($alert.alertContext.status)"
+			$(if ($alert.alertContext.virusName) {
+				"Found {0} virus. " -f $alert.alertContext.virusName
 			}
-			if($alert.alertContext.infectedFiles){
-				$message += "Found {0} infected files. " -f $alert.alertContext.infectedFiles
+			if ($alert.alertContext.infectedFiles) {
+				"Found {0} infected files. " -f $alert.alertContext.infectedFiles
 			}
-			if($alert.alertContext.productNotUpdatedForDays){
-				$message += "Product not updated for {0} day(s). " -f $alert.alertContext.productNotUpdatedForDays
+			if ($alert.alertContext.productNotUpdatedForDays) {
+				"Product not updated for {0} day(s). " -f $alert.alertContext.productNotUpdatedForDays
 			}
-			if($alert.alertContext.systemRemainsInfectedForHours){
-				$message += "Sytem remianed infected for {0} hour(s). " -f $alert.alertContext.systemRemainsInfectedForHours
+			if ($alert.alertContext.systemRemainsInfectedForHours) {
+				"Sytem remained infected for {0} hour(s). " -f $alert.alertContext.systemRemainsInfectedForHours
 			}
-			if($alert.alertContext.expiryLicenseForDays){
-				$message += "License expired for {0} day(s). " -f $alert.alertContext.expiryLicenseForDays
-			}
+			if ($alert.alertContext.expiryLicenseForDays) {
+				"License expired for {0} day(s). " -f $alert.alertContext.expiryLicenseForDays
+			})
+"@
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertMessage' -Value $message
 		}
 
 		'srvc_resource_usage_ctx' {
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertType' -Value 'Service'
-			if($alert.alertContext.type -eq 'CPU')
-				{$message = "Service {0} CPU reached {1}%" -f $alert.alertContext.serviceName, [math]::Round($alert.alertContext.sample)
+			if ($alert.alertContext.type -eq 'CPU') {
+				$message = "Service {0} CPU reached {1}%" -f $alert.alertContext.serviceName, [math]::Round($alert.alertContext.sample)
 			}
-			if($alert.alertContext.type -eq 'MEMORY')
-				{$message = "Service {0} memory reached {1}%" -f $alert.alertContext.serviceName, [math]::Round($alert.alertContext.sample)
+			if ($alert.alertContext.type -eq 'MEMORY') {
+				$message = "Service {0} memory reached {1}%" -f $alert.alertContext.serviceName, [math]::Round($alert.alertContext.sample)
 			}
 			$alert | Add-Member -MemberType NoteProperty -Name 'alertMessage' -Value $message
 		}

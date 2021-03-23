@@ -9,23 +9,23 @@
 
 	#>
 
-    # Declare Variables
-    $apiMethod = 'GET'
-    $maxPage = 250
-    $nextPageUrl = $null
-    $page = 0
-    $Results = @()
+	# Declare Variables
+	$apiMethod = 'GET'
+	$maxPage = 250
+	$nextPageUrl = $null
+	$page = 0
+	$Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/users?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.users
-		    $page++
-	    }
-    }
-    until ($nextPageUrl -eq $null)
+	$results = do {
+		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/users?max=$maxPage&page=$page" | ConvertFrom-Json
+		if ($Response) {
+			$nextPageUrl = $Response.pageDetails.nextPageUrl
+			$Response.users
+			$page++
+		}
+	}
+	until ($null -eq $nextPageUrl)
 
-    # Return all account devices
-    return $Results
+	# Return all account devices
+	return $Results
 }
