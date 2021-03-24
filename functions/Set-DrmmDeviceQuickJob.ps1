@@ -13,6 +13,9 @@ function Set-DrmmDeviceQuickJob {
 	.PARAMETER JobName
 	Provide name of the quick job.
 
+	.PARAMETER ComponentName
+	Provide name of the component to run.
+
 	.PARAMETER Variables 
 	Provide variables names and values, must be a hash.
 
@@ -24,7 +27,10 @@ function Set-DrmmDeviceQuickJob {
         $deviceUid,
 
         [Parameter(Mandatory=$True)] 
-        $jobName,
+		$jobName,
+		
+		[Parameter(Mandatory=$True)] 
+        $ComponentName,
 
         [Parameter(Mandatory=$False)] 
         $variables
@@ -35,15 +41,18 @@ function Set-DrmmDeviceQuickJob {
 	$apiMethod = 'PUT'
 	$jobComponent = @{}
 	$quickJobRequest = @{}
-	$componentUid = ''
 
 	# Get Component Uid
 	ForEach ($Component in Get-DrmmAccountComponents)
 	{
-		if($Component.name -eq $jobName)
+		if($Component.name -ieq $ComponentName)
 		{ 
 			$componentUid = $Component.uid
 		}
+	}
+
+	if ( $null -eq $componentUid ) {
+		throw "Could not find a component named `"$ComponentName`" specified by parameter 'ComponentName'"
 	}
 
 	# Create quick job request
