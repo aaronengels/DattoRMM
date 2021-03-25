@@ -19,20 +19,20 @@ function Set-DrmmDeviceWarranty {
 	#>
 
 	# Function Parameters
-    Param (
-        [Parameter(Mandatory=$True)] 
-        $deviceUid,
+	Param (
+		[Parameter(Mandatory = $True)] 
+		$deviceUid,
 
-        [Parameter(Mandatory=$True)] 
-        $warranty
-    )
+		[Parameter(Mandatory = $True)] 
+		$warranty
+	)
 
 	# Declare Variables
-		$apiMethod = 'POST'
-		$Warranty = @{}
+	$apiMethod = 'POST'
+	$Warranty = @{}
 
 	# Add Wwrranty if provided
-	If ($PSBoundParameters.ContainsKey('warranty')) {$Warranty.Add('warranty',$warranty)}
+	If ($PSBoundParameters.ContainsKey('warranty')) { $Warranty.Add('warrantyDate', $warranty) }
 
 	# Convert to JSON
 	$Body = $Warranty | ConvertTo-Json

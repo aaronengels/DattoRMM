@@ -1,20 +1,19 @@
-function Get-DrmmSiteResolvedAlerts {
+function Get-DrmmSiteVariables {
 
     <#
 	.SYNOPSIS
-	Fetches the resolved alerts of the device identified by the given site Uid.
-
-	.PARAMETER SiteUid
-	Provide site uid which will be used to return device resolved alerts.
-	
-	#>
+	Gets account variables.
     
+    .PARAMETER siteUid
+    The UID of the site for which to get variables.
+	#>
+
     # Function Parameters
     Param (
         [Parameter(Mandatory = $True)] 
         $siteUid
     )
-	
+
     # Declare Variables
     $apiMethod = 'GET'
     $maxPage = 250
@@ -23,16 +22,15 @@ function Get-DrmmSiteResolvedAlerts {
     $Results = @()
 
     $results = do {
-        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/alerts/resolved?max=$maxPage&page=$page" | ConvertFrom-Json
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/variables?max=$maxPage&page=$page" | ConvertFrom-Json
         if ($Response) {
             $nextPageUrl = $Response.pageDetails.nextPageUrl
-            $Response.alerts
+            $Response.variables
             $page++
         }
     }
     until ($null -eq $nextPageUrl)
 
-    # Return all site resolved alerts
+    # Return all account devices
     return $Results
-
-}
+} 

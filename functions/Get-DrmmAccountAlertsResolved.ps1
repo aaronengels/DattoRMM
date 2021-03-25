@@ -1,6 +1,6 @@
 ﻿function Get-DrmmAccountAlertsResolved {
 
-	<#
+    <#
 	.SYNOPSIS
 	Fetches resolved alerts of the authenticated user's account
 
@@ -15,7 +15,7 @@
 
     # Function Parameters
     Param (
-        [Parameter(Mandatory=$False)]
+        [Parameter(Mandatory = $False)]
         [Switch]$muted
     )
 
@@ -26,15 +26,15 @@
     $page = 0
     $Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/alerts/resolved?max=$maxPage&page=$page&muted=$muted" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.Alerts
-		    $page++
-	    }
+    $results = do {
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/alerts/resolved?max=$maxPage&page=$page&muted=$muted" | ConvertFrom-Json
+        if ($Response) {
+            $nextPageUrl = $Response.pageDetails.nextPageUrl
+            $Response.Alerts
+            $page++
+        }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all sites except the 'Deleted Devices' site
     return $Results

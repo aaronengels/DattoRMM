@@ -1,6 +1,6 @@
 function Get-DrmmAccountSites {
 
-	<#
+    <#
 	.SYNOPSIS
 	Fetches the site records of the authenticated user's account.
 
@@ -15,7 +15,7 @@ function Get-DrmmAccountSites {
     # Function Parameters
     Param (
         
-		[Parameter(Mandatory=$False)]
+        [Parameter(Mandatory = $False)]
         [Switch]$noDeletedDevices
     )
 
@@ -26,19 +26,19 @@ function Get-DrmmAccountSites {
     $page = 0
     $Results = @()
 
-    do {
-	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/sites?max=$maxPage&page=$page" | ConvertFrom-Json
-	    if ($Response) {
-		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		    $Results += $Response.Sites
-		    $page++
-	    }
+    $results = do {
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/sites?max=$maxPage&page=$page" | ConvertFrom-Json
+        if ($Response) {
+            $nextPageUrl = $Response.pageDetails.nextPageUrl
+            $Response.Sites
+            $page++
+        }
     }
-    until ($nextPageUrl -eq $null)
+    until ($null -eq $nextPageUrl)
 
     # Return all sites except the 'Deleted Devices' site
     if ($noDeletedDevices) {    
-        return $Results | where name -ne 'Deleted Devices'
+        return $Results | Where-Object name -ne 'Deleted Devices'
     }
     else {
         return $Results
