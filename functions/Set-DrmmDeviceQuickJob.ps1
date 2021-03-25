@@ -24,18 +24,25 @@ function Set-DrmmDeviceQuickJob {
 	#>
 
 	# Function Parameters
+	[CmdletBinding(DefaultParameterSetName='preparedVariables')]
     Param (
-        [Parameter(Mandatory=$True)] 
+        [Parameter(Mandatory=$True,ParameterSetName = "preparedVariables")] 
+        [Parameter(Mandatory=$True,ParameterSetName = "unpreparedVariables")] 
         $deviceUid,
 
-        [Parameter(Mandatory=$True)] 
+        [Parameter(Mandatory=$True,ParameterSetName = "preparedVariables")] 
+        [Parameter(Mandatory=$True,ParameterSetName = "unpreparedVariables")] 
 		$jobName,
 		
-		[Parameter(Mandatory=$True)] 
+		[Parameter(Mandatory=$True,ParameterSetName = "preparedVariables")] 
+        [Parameter(Mandatory=$True,ParameterSetName = "unpreparedVariables")] 
         $ComponentName,
 
-        [Parameter(Mandatory=$False)] 
-        [hashtable]$variables
+        [Parameter(Mandatory=$False,ParameterSetName = "preparedVariables")] 
+		[PSCustomObject]$variables,
+		
+		[Parameter(Mandatory=$False,ParameterSetName = "unpreparedVariables")] 
+        [hashtable]$VariableDefinitions
 
     )
 	
@@ -57,20 +64,22 @@ function Set-DrmmDeviceQuickJob {
 		throw "Could not find a component named `"$ComponentName`" specified by parameter 'ComponentName'"
 	}
 
-	#convert variable data from hashtable to array that can be converted to API-compatible JSON object
-    $variablesArray = @()
-    foreach ( $Key in $variables.Keys ) {
-        $temp = @{
-            "name" = $Key
-            "value" = $variables[$Key]
-        }
-        $variablesArray += $temp
-    }
-
+	if ( $PSBoundParameters.ContainsKey('VariableDefinitions') ) {
+		#convert variable data from hashtable to array that can be converted to API-compatible JSON object
+		$variables = @()
+		foreach ( $Key in $VariableDefinitions.Keys ) {
+			$temp = @{
+				"name" = $Key
+				"value" = $VariableDefinitions[$Key]
+			}
+			$variables += $temp
+		}	
+	}
+	
 	# Create quick job request
 	$quickJobRequest.Add('jobName',$jobName)
 	$jobComponent.Add('componentUid',$componentUid)
-	$jobComponent.Add('variables',$variablesArray)
+	$jobComponent.Add('variables',$variables)
 	$quickJobRequest.Add('jobComponent',$jobComponent)
 
 	# Convert to JSON
