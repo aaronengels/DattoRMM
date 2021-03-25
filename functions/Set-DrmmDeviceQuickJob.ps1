@@ -20,7 +20,7 @@ function Set-DrmmDeviceQuickJob {
 	Provide variables names and values, must be an array object (see examples)
 
 	.PARAMETER VariableDefinitions 
-	Provide variables names and values, must be an array object (see examples)
+	Provide variables names and values, must be a hashtable (see examples)
 
 	.EXAMPLE
 	$variables = @() + @{name = "variable1";value = "variable1Value"} + @{name="variable2";value='variable2Value'}
