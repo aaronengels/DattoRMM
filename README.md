@@ -47,8 +47,8 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 - Added New-DrmmAccountVariables (by Rob Gilbreath)
 - Added Remove-DrmmSiteVariables (by Rob Gilbreath)
 - Added Remove-DrmmAccountVariables (by Rob Gilbreath)
-- Added Set-DrmmDeviceWarranty (by Kevin Tegelaar)
-- Performance improvements, code cleanup, added features for v9.2  (by Kevin Tegelaar)
+- Added Set-DrmmDeviceWarranty (by Kelvin Tegelaar)
+- Performance improvements, code cleanup, added features for v9.2  (by Kelvin Tegelaar)
 
 ## Version 1.0.0.21
 - Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
