@@ -82,10 +82,10 @@ function Set-DrmmDeviceQuickJob {
 	$jobComponent.Add('variables',$variables)
 	$quickJobRequest.Add('jobComponent',$jobComponent)
 
-	# Convert to JSON
+	# Convert to JSON - Increased depth is needed to convert variable definitions if present
 	$Body = $quickJobRequest | ConvertTo-Json -Depth 3
 
-	# Update UDFs
+	# Create QuickKob
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/device/$deviceUid/quickjob" -apiRequestBody $Body | ConvertFrom-Json
 
 }
