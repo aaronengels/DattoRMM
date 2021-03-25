@@ -17,10 +17,17 @@ function Set-DrmmDeviceQuickJob {
 	Provide name of the component to run.
 
 	.PARAMETER Variables 
-	Provide variables names and values, must be a hash.
+	Provide variables names and values, must be an array object (see examples)
+
+	.PARAMETER VariableDefinitions 
+	Provide variables names and values, must be an array object (see examples)
 
 	.EXAMPLE
+	$variables = @() + @{name = "variable1";value = "variable1Value"} + @{name="variable2";value='variable2Value'}
     $response = Set-DrmmDeviceQuickJob -DeviceUid '00000000-0000-0000-0000-000000000000' -jobName "Quick Job running Foo" -ComponentName "Foo" -Variables @{"bar"="baz";"qux"="quux"}
+	
+	.EXAMPLE
+	$response = Set-DrmmDeviceQuickJob -DeviceUid '00000000-0000-0000-0000-000000000000' -jobName "Quick Job running Foo" -ComponentName "Foo" -VariableDefinitions @{"variable1"="variable1Value";"variable2"="variable2Value"}
 	#>
 
 	# Function Parameters
