@@ -17,6 +17,13 @@ function Set-ApiParameters{
 	
 	Param(
 	[Parameter(Position = 0, Mandatory=$False)]
+	[ValidateSet(
+		"https://pinotage-api.centrastage.net",
+		"https://merlot-api.centrastage.net",
+		"https://concord-api.centrastage.net",
+		"https://zinfandel-api.centrastage.net",
+		"https://syrah-api.centrastage.net"
+	)]
 	$Url,
     
 	[Parameter(Position = 1, Mandatory=$False)]
