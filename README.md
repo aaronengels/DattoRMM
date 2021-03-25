@@ -50,7 +50,7 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 - Added Set-DrmmDeviceWarranty (by Kelvin Tegelaar)
 - Performance improvements, code cleanup, added features for v9.2  (by Kelvin Tegelaar)
 
-## Version 1.0.0.21
+## Version 1.0.0.22
 - Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
 - Added Add-DrmmAlertMessage - Add a alert message based on the alert context provided by the API.
 - Added Get-DrmmAuditESXi - To get audit data from ESXi hosts
