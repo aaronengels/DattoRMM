@@ -8,9 +8,6 @@ function Get-DrmmCustomFilters {
 	Returns all custom device filters that are viewable by the account as administrator.
 
 	#>
-    
-	# Declare Variables
-    $apiMethod = 'GET'
 
     # Declare Variables
     $apiMethod = 'GET'
