@@ -7,6 +7,15 @@ function Get-DrmmDefaultFilters {
 	.DESCRIPTION
 	Returns all default device filters.
 
+    .PARAMETER Name
+    Optional parameter to return a filter with a specific name
+    #>
+    
+    # Function Parameters
+    Param (
+        [Parameter(Mandatory=$False)]
+        [String]$Name
+    )
 	#>
 
     # Declare Variables
@@ -25,6 +34,11 @@ function Get-DrmmDefaultFilters {
         }
     }
     until ($null -eq $nextPageUrl)
+
+    if ( $PSBoundParameters.ContainsKey("Name") ) {
+        return $results | Where-Object { $_.name -eq $Name }
+    }
+    
 	return $results
 
 }
