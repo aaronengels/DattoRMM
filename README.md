@@ -40,6 +40,19 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.26
+- Fixed Get-DrmmAuditDeviceSoftware
+- Update Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
+- Update Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
+- Create Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Create Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Update Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Update Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Update Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Update Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Update Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
+- Update Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
+
 ## Version 1.0.0.25
 - Added Get-DrmmSiteVariables (by Rob Gilbreath)
 - Added Get-DrmmAccountVariables (by Rob Gilbreath)
