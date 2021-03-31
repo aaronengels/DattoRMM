@@ -4,8 +4,8 @@ function Get-DrmmAuditDeviceSoftware {
 	.SYNOPSIS
 	Fetches audited software of the generic device identified the given device Uid.
 
-	.PARAMETER SiteUid
-	Provide site uid which will be use to return this site devices.
+	.PARAMETER deviceUid
+	Provide site uid which will be used to return this site's audited software.
 	
 	#>
     
@@ -26,7 +26,7 @@ function Get-DrmmAuditDeviceSoftware {
 	    $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/audit/device/$deviceUid/software?max=$maxPage&page=$page" | ConvertFrom-Json
 	    if ($Response) {
 		    $nextPageUrl = $Response.pageDetails.nextPageUrl
-		$Response.devices
+		$Response.software
 		    $page++
 	    }
     }
