@@ -7,8 +7,16 @@ function Get-DrmmCustomFilters {
 	.DESCRIPTION
 	Returns all custom device filters that are viewable by the account as administrator.
 
-	#>
-
+    .PARAMETER Name
+    Optional parameter to return a filter with a specific name
+    #>
+    
+    # Function Parameters
+    Param (
+        [Parameter(Mandatory=$False)]
+        [String]$Name
+    )
+    
     # Declare Variables
     $apiMethod = 'GET'
     $maxPage = 250
@@ -25,6 +33,11 @@ function Get-DrmmCustomFilters {
         }
     }
     until ($null -eq $nextPageUrl)
-	return $results
+    
+    if ( $PSBoundParameters.ContainsKey("Name") ) {
+        return $results | Where-Object { $_.name -eq $Name }
+    }
+    
+    return $results
 
 }
