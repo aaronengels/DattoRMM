@@ -28,7 +28,7 @@ function Get-DrmmSiteDevices {
     $maxPage = 250
     $nextPageUrl = $null
 	$page = 0
-	if ( $null -ne $FilterId ) {
+	if ( $PSBoundParameters.ContainsKey("FilterId") ) {
 		$filterQuery = "&filterId=$FilterId"
 	}
 	$Results = @()
