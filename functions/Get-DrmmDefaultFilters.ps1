@@ -8,10 +8,6 @@ function Get-DrmmDefaultFilters {
 	Returns all default device filters.
 
 	#>
-    
-    
-	# Declare Variables
-    $apiMethod = 'GET'
 
     # Declare Variables
     $apiMethod = 'GET'
