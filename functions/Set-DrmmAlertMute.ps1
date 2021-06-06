@@ -18,10 +18,6 @@ function Set-DrmmAlertMute {
         $alertUid
     )
 	
-	# Declare Variables
-		$apiMethod = 'POST'
-
-	# Mute Alert
-	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/alert/$alertUid/mute"
+	Throw "As of Datto RMM 8.9.0 alerts cannot be muted or unmuted. `nFunction Set-DrmmAlertMute has been deprecated.`nhttps://help.aem.autotask.net/en/Content/0HOME/ReleaseNotes/2020/ReleaseNotesDattoRMMv8.9.0.htm"
 
 }
