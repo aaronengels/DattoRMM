@@ -59,7 +59,7 @@ function New-ApiRequest {
 
 	# Make request
 	try {
-		(Invoke-WebRequest @params).Content
+		(Invoke-WebRequest -UseBasicParsing @params).Content
 	}
 	catch {
 		

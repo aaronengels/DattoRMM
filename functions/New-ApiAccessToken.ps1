@@ -42,7 +42,7 @@ function New-ApiAccessToken {
 	# Request access token
 	try 
 	{
-		(Invoke-WebRequest @params | ConvertFrom-Json).access_token
+		(Invoke-WebRequest -UseBasicParsing @params | ConvertFrom-Json).access_token
 
 	}
 	catch 
