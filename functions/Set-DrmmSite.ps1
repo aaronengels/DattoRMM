@@ -40,7 +40,7 @@ function Set-DrmmSite {
         $siteNotes,
 
         [Parameter(Mandatory=$False)] 
-        [switch]$onDemand,
+        [bool]$onDemand,
 
         [Parameter(Mandatory=$False)] 
         [switch]$splashtopAutoInstall
@@ -54,7 +54,7 @@ function Set-DrmmSite {
 	$updateSiteRequest.Add('name',$siteName)
 	If ($PSBoundParameters.ContainsKey('siteDescription')) {$updateSiteRequest.Add('description',$siteDescription)}
 	If ($PSBoundParameters.ContainsKey('siteNotes')) {$updateSiteRequest.Add('notes',$siteNotes)}
-	If ($PSBoundParameters.ContainsKey('onDemand')) {$updateSiteRequest.Add('onDemand',$True)}
+	If ($PSBoundParameters.ContainsKey('onDemand')) {$updateSiteRequest.Add('onDemand',$onDemand)}
 	If ($PSBoundParameters.ContainsKey('splashtopAutoInstall')) {$updateSiteRequest.Add('splashtopAutoInstall',$True)}
 
 	# Convert to JSON
