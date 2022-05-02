@@ -10,10 +10,10 @@ function New-ApiRequest {
 	.PARAMETER ApiMethod
 	Provide API Method GET, PUT or POST
 
-	.PARAMETER ApiRequest 
+	.PARAMETER ApiRequest
 	See Datto RMM API swagger UI
 
-	.PARAMETER ApiRequestBody 
+	.PARAMETER ApiRequestBody
 	Only used with PUT and POST request
 
     .INPUTS
@@ -25,7 +25,7 @@ function New-ApiRequest {
 	API response
 
 	#>
-    
+
 	Param(
 		[Parameter(Mandatory = $True)]
 		[ValidateSet('GET', 'PUT', 'POST', 'DELETE')]
@@ -33,7 +33,7 @@ function New-ApiRequest {
 
 		[Parameter(Mandatory = $True)]
 		[string]$apiRequest,
-    
+
 		[Parameter(Mandatory = $False)]
 		[string]$apiRequestBody
 	)
@@ -59,14 +59,15 @@ function New-ApiRequest {
 
 	# Make request
 	try {
-		(Invoke-WebRequest -UseBasicParsing @params).Content
+		$response = Invoke-WebRequest -UseBasicParsing @params
+		[System.Text.Encoding]::UTF8.GetString($response.RawContentStream.ToArray())
 	}
 	catch {
-		
+
 		$exceptionError = $_.Exception.Message
-		
+
 		switch ($exceptionError) {
-	
+
 			'The remote server returned an error: (429).' {
 				Write-Host 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
 				Start-Sleep -Seconds 60
