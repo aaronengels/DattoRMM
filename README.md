@@ -40,6 +40,9 @@ For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-
 
 # Release notes
 
+## Version 1.0.0.29
+- Fixed umlaut problem (by BKSystemsEngler)
+
 ## Version 1.0.0.28
 - Added -UseBasicParsing parameter to Invoke-WebRequest (by Rob Gilbreath)
 
