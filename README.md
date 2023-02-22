@@ -4,6 +4,9 @@ This module is designed to make it easier to use the Datto RMM API in your Power
 you can develop your scripts faster and be more efficient. There is no need to go through a big learning curve spending lots
 of time working out how to use the Datto RMM API. Simply load the module, enter your API keys and get results within minutes!
 
+# Support my work
+You can donate to continue support this project https://gofund.me/fb60f42d
+
 # Basics
 
 You can install the module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/DattoRMM) and use example below to get started.
