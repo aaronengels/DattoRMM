@@ -5,7 +5,7 @@ you can develop your scripts faster and be more efficient. There is no need to g
 of time working out how to use the Datto RMM API. Simply load the module, enter your API keys and get results within minutes!
 
 # Support my work
-You can donate to help support this project [here](https://gofund.me/fb60f42d). 
+You can support this project donating [here](https://gofund.me/fb60f42d). 
 
 # Basics
 
