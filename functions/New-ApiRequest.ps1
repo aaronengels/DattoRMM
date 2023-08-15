@@ -64,6 +64,7 @@ function New-ApiRequest {
 	}
 	catch {
 
+		$errorObject = $_
 		$exceptionError = $_.Exception.Message
 
 		switch ($exceptionError) {
@@ -88,7 +89,7 @@ function New-ApiRequest {
 			}
 
 			default {
-				Write-Host "$exceptionError"
+				Write-Error $errorObject
 			}
 
 		}
