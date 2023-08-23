@@ -1,97 +1,107 @@
 function New-ApiRequest {
 
-	<#
-	.SYNOPSIS
-	Makes a API request.
+    <#
+    .SYNOPSIS
+    Makes a API request.
 
-	.DESCRIPTION
-	Returns the API response.
+    .DESCRIPTION
+    Returns the API response.
 
-	.PARAMETER ApiMethod
-	Provide API Method GET, PUT or POST
+    .PARAMETER ApiMethod
+    Provide API Method GET, PUT or POST
 
-	.PARAMETER ApiRequest
-	See Datto RMM API swagger UI
+    .PARAMETER ApiRequest
+    See Datto RMM API swagger UI
 
-	.PARAMETER ApiRequestBody
-	Only used with PUT and POST request
+    .PARAMETER ApiRequestBody
+    Only used with PUT and POST request
 
     .INPUTS
-	$apiUrl = The API URL
-	$apiKey = The API Key
-	$apiKeySecret = The API Secret Key
+    $apiUrl = The API URL
+    $apiKey = The API Key
+    $apiKeySecret = The API Secret Key
 
-	.OUTPUTS
-	API response
+    .OUTPUTS
+    API response
 
-	#>
+    #>
 
-	Param(
-		[Parameter(Mandatory = $True)]
-		[ValidateSet('GET', 'PUT', 'POST', 'DELETE')]
-		[string]$apiMethod,
+    Param(
+        [Parameter(Mandatory = $True)]
+        [ValidateSet('GET', 'PUT', 'POST', 'DELETE')]
+        [string]$apiMethod,
 
-		[Parameter(Mandatory = $True)]
-		[string]$apiRequest,
+        [Parameter(Mandatory = $True)]
+        [string]$apiRequest,
 
-		[Parameter(Mandatory = $False)]
-		[string]$apiRequestBody
-	)
+        [Parameter(Mandatory = $False)]
+        [string]$apiRequestBody
+    )
 
-	# Check API Parameters
-	if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
-		Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
-		return
-	}
+    # Check API Parameters
+    if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
+        Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
+        return
+    }
 
-	# Define parameters for Invoke-WebRequest cmdlet
-	$params = [ordered] @{
-		Uri         = '{0}/api{1}' -f $apiUrl, $apiRequest
-		Method      = $apiMethod
-		ContentType = 'application/json'
-		Headers     = @{
-			'Authorization' = 'Bearer {0}' -f $apiAccessToken
-		}
-	}
+    # Define parameters for Invoke-WebRequest cmdlet
+    $params = [ordered] @{
+        Uri         = '{0}/api{1}' -f $apiUrl, $apiRequest
+        Method      = $apiMethod
+        ContentType = 'application/json'
+        Headers     = @{
+            'Authorization' = 'Bearer {0}' -f $apiAccessToken
+        }
+    }
 
-	# Add body to parameters if present
-	If ($apiRequestBody) { $params.Add('Body', $apiRequestBody) }
+    # Add body to parameters if present
+    If ($apiRequestBody) { $params.Add('Body', $apiRequestBody) }
 
-	# Make request
-	try {
-		$response = Invoke-WebRequest -UseBasicParsing @params
-		[System.Text.Encoding]::UTF8.GetString($response.RawContentStream.ToArray())
-	}
-	catch {
+    $maxRetries = 3  # Maximum number of retries    
+    $retryCount = 0
 
-		$errorObject = $_
-		$exceptionError = $_.Exception.Message
+    do {
+        try {
+            $response = Invoke-WebRequest -UseBasicParsing @params
+            $content = [System.Text.Encoding]::UTF8.GetString($response.RawContentStream.ToArray())
+            return $content  # Return successful response content and exit the function
+        }
+        catch {
+            $errorObject = $_
+            $exceptionError = $_.Exception.Message
 
-		switch ($exceptionError) {
+            switch ($exceptionError) {
+                'The remote server returned an error: (429).' {
+                    Write-Warning 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
+                    Start-Sleep -Seconds 60
+                }
+                'The remote server returned an error: (403) Forbidden.' {
+                    Write-Warning 'New-ApiRequest : AWS DDOS protection breached, sleeping for 5 minutes'
+                    Start-Sleep -Seconds 300
+                }
+                'The remote server returned an error: (404) Not Found.' {
+                    Write-Error "New-ApiRequest : $apiRequest not found!"
+					return
+                }
+                'The remote server returned an error: (504) Gateway Timeout.' {
+                    Write-Warning "New-ApiRequest : Gateway Timeout, sleeping for 60 seconds"
+                    Start-Sleep -Seconds 60
+                }
+                default {
+                    Write-Error $errorObject
+					return
+                }
+            }
+        }
 
-			'The remote server returned an error: (429).' {
-				Write-Host 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
-				Start-Sleep -Seconds 60
-			}
+        $retryCount++
+        if ($retryCount -lt $maxRetries) {
+            Write-Warning "New-ApiRequest : Retrying API request $apiRequest (Attempt $retryCount of $maxRetries)"
+        }
+        else {
+            Write-Error "New-ApiRequest : Maximum retry attempts reached."
+            break
+        }
+    } while ($retryCount -lt $maxRetries)
 
-			'The remote server returned an error: (403) Forbidden.' {
-				Write-Host 'New-ApiRequest : AWS DDOS protection breached, sleeping for 5 minutes'
-				Start-Sleep -Seconds 300
-			}
-
-			'The remote server returned an error: (404) Not Found.' {
-				Write-Host "New-ApiRequest : $apiRequest not found!"
-			}
-
-			'The remote server returned an error: (504) Gateway Timeout.' {
-				Write-Host "New-ApiRequest :  Gateway Timeout, sleeping for 60 seconds"
-				Start-Sleep -Seconds 60
-			}
-
-			default {
-				Write-Error $errorObject
-			}
-
-		}
-	}
 }
