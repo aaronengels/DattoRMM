@@ -38,10 +38,14 @@ ForEach ($site in Get-DrmmAccountSites -noDeletedDevices)
 
 # Datto RMM API
 
-How to create API keys goto https://help.aem.autotask.net/en/Content/2SETUP/APIv2.htm for more information.  
-For the REST API properties goto https://merlot-api.centrastage.net/api/swagger-ui.html#/ for more information.
+For how to create API keys, go to https://help.aem.autotask.net/en/Content/2SETUP/APIv2.htm for more information.  
+For the REST API properties, go to https://merlot-api.centrastage.net/api/swagger-ui.html#/ for more information.
 
 # Release notes
+
+## Version 1.0.0.30
+- Added Get-DevicesNeedingReboot (by Brain Killay)
+- Improved error handling (by Phil Holbrook)
 
 ## Version 1.0.0.29
 - Fixed umlaut problem (by BKSystemsEngler)
