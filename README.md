@@ -44,7 +44,7 @@ For the REST API properties, go to https://merlot-api.centrastage.net/api/swagge
 # Release notes
 
 ## Version 1.0.0.30
-- Added Get-DevicesNeedingReboot (by Brain Killay)
+- Added Get-DevicesNeedingReboot (by Brian Killay)
 - Improved error handling (by Phill Holbrook)
 
 ## Version 1.0.0.29
