@@ -55,7 +55,11 @@ function New-ApiRequest {
     }
 
     # Add body to parameters if present
-    If ($apiRequestBody) { $params.Add('Body', $apiRequestBody) }
+    If ($apiRequestBody) {
+        # Convert body to UTF8
+        [byte[]]$apiRequestBody = [System.Text.Encoding]::UTF8.GetBytes($apiRequestBody)
+        $params.Add('Body', $apiRequestBody)
+    }
 
     $maxRetries = 3  # Maximum number of retries    
     $retryCount = 0
