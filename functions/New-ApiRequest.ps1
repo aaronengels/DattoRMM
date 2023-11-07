@@ -39,18 +39,18 @@ function New-ApiRequest {
     )
 
     # Check API Parameters
-    if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
+    if (!$script:ApiUrl -or !$script:ApiAccessToken) {
         Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
         return
     }
 
     # Define parameters for Invoke-WebRequest cmdlet
     $params = [ordered] @{
-        Uri         = '{0}/api{1}' -f $apiUrl, $apiRequest
+        Uri         = '{0}/api{1}' -f $script:ApiUrl, $apiRequest
         Method      = $apiMethod
         ContentType = 'application/json'
         Headers     = @{
-            'Authorization' = 'Bearer {0}' -f $apiAccessToken
+            'Authorization' = 'Bearer {0}' -f $script:ApiAccessToken
         }
     }
 
@@ -61,7 +61,7 @@ function New-ApiRequest {
         $params.Add('Body', $apiRequestBody)
     }
 
-    $maxRetries = 3  # Maximum number of retries    
+    $maxRetries = 3  # Maximum number of retries
     $retryCount = 0
 
     do {
