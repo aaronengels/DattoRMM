@@ -8,24 +8,28 @@ function New-ApiAccessToken {
 	Returns the API token.
 
 	.INPUTS
-	$apiUrl = The API URL
-	$apiKey = The API Key
-	$apiKeySecret = The API Secret Key
+	$apiUrl = The API URL from module variables
+	$Credential = The API Key (UserName) and Secret Key (Password)
 
 	.OUTPUTS
 	API Token
 
 	#>
 
+	param (
+		[Parameter(Mandatory=$True)]
+		[pscredential]
+		$Credential
+	)
+
 	# Check API Parameters
-	if (!$apiUrl -or !$apiKey -or !$apiSecretKey) {
-		Write-Host "API Parameters missing, please run Set-DrmmApiParameters first!"
+	if (!$script:apiUrl) {
+		Write-Host "API URL missing, please run Set-DrmmApiParameters first!"
 		return
 	}
 
-	# Specify security protocols
-	# [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
-	[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls11,Tls12'
+	# add TLS 1.2 if missing
+	[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]'Tls12'
 
 	# Convert password to secure string
 	$securePassword = ConvertTo-SecureString -String 'public' -AsPlainText -Force
@@ -36,18 +40,16 @@ function New-ApiAccessToken {
 		Uri         = '{0}/auth/oauth/token' -f $apiUrl
 		Method      = 'POST'
 		ContentType = 'application/x-www-form-urlencoded'
-		Body        = 'grant_type=password&username={0}&password={1}' -f $apiKey, $apiSecretKey
+		Body        = 'grant_type=password&username={0}&password={1}' -f $Credential.UserName, $Credential.GetNetworkCredential().Password
 	}
-	
+
 	# Request access token
-	try 
+	try
 	{
 		(Invoke-WebRequest -UseBasicParsing @params | ConvertFrom-Json).access_token
-
 	}
-	catch 
+	catch
 	{
 		Write-Host $_.Exception.Message
 	}
-
 }
