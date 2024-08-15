@@ -53,11 +53,7 @@ function Get-DrmmActivityLogs {
     # Append the query parameters to the RequestUri
     if ($queryParams.Count -gt 0) {
         $RequestUri += [string]::Join('&', $queryParams)
-    } else {
-		#$RequestUri += "size=250"
-	}
-
-	Write-Host "RequestUri: $RequestUri"
+    }
 	
 	# Query Activity Logs
 	$ActivityLogs = do {
