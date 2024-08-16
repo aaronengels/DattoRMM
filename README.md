@@ -45,6 +45,7 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 ## Version 1.0.0.32
 - Added support to pull activity logs (by Phill Holbrook)
+- Add PSCredential support for connecting Api (by Meelis Nigols)
 
 ## Version 1.0.0.31
 - Added Get-DevicesNeedingReboot (by Brian Killay)
