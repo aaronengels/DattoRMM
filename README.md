@@ -1,17 +1,17 @@
 # About
 
-This module will make it easier to use the Datto RMM API in your PowerShell scripts. As all the hard work is done,
+This module will make using the Datto RMM API in your PowerShell scripts easier. As all the hard work is done,
 you can develop your scripts faster and be more efficient. There is no need to go through a big learning curve spending lots
-of time working out how to use the Datto RMM API. Simply load the module, enter your API keys and get results within minutes!
+of time working out how to use the Datto RMM API. Load the module, enter your API keys and get results within minutes!
 
 # Support my work
-You can support this project donating [here](https://gofund.me/fb60f42d). 
+You can support this project by donating [here](https://gofund.me/fb60f42d). 
 
 # Basics
 
-You can install the module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/DattoRMM) and use example below to get started.
+You can install the module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/DattoRMM) and use the example below to get started.
 
-```powershell
+```PowerShell
 # Load module
 Import-Module DattoRMM -Force
 
@@ -38,10 +38,13 @@ ForEach ($site in Get-DrmmAccountSites -noDeletedDevices)
 
 # Datto RMM API
 
-For how to create API keys, go to https://help.aem.autotask.net/en/Content/2SETUP/APIv2.htm for more information.  
-For the REST API properties, go to https://merlot-api.centrastage.net/api/swagger-ui.html#/ for more information.
+To learn how to create API keys, go to https://help.aem.autotask.net/en/Content/2SETUP/APIv2.htm.  
+For more information on the REST API properties, go to https://merlot-api.centrastage.net/api/swagger-ui.html#/.
 
 # Release notes
+
+## Version 1.0.0.32
+- Added support to pull activity logs (by Phill Holbrook)
 
 ## Version 1.0.0.31
 - Added Get-DevicesNeedingReboot (by Brian Killay)
@@ -86,18 +89,18 @@ For the REST API properties, go to https://merlot-api.centrastage.net/api/swagge
 - Updated Set-DrmmSiteProxy - Fixed JSON request issue.
 - Updated Remove-DrmmSiteProxy - Fixed JSON request issue.
 - Updated Set-DrmmSiteProxy - Updated function parameters.
-- Updated New-DrmmSite - Fixed issue when using onDemand switch.
-- Updated Set-DrmmSite - Fixed issue when using onDemand switch.
+- Updated New-DrmmSite - Fixed issue when using the onDemand switch.
+- Updated Set-DrmmSite - Fixed issue when using the onDemand switch.
 - Updated New-ApiAccessToken - Adjusted security protocols
 
 ## Version 1.0.0.10
 - Added Get-DrmmAuditDevice
 - Added Get-DrmmAuditDeviceSoftware
-- Updated New-ApiRequest - Added error handeling.
-- Updated New-ApiAccessToken - Added error handeling.
+- Updated New-ApiRequest - Added error handling.
+- Updated New-ApiAccessToken - Added error handling.
 - Updated New-ApiRequest - Removed global variables.
-- Updated New-ApiRequest - Added delay when 600 request/minute reached.
-- Updated Set-DrmmSiteProxy - Made host,port and type mandatory. 
+- Updated New-ApiRequest - Added delay when 600 requests/minute reached.
+- Updated Set-DrmmSiteProxy - Made host, port and type mandatory. 
 
 ## Version 1.0.0.8
 - Added New-DrmmSite
