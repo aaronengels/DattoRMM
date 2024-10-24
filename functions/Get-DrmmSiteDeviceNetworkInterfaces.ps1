@@ -2,10 +2,10 @@ function Get-DrmmSiteDeviceNetworkInterfaces {
 
 	<#
 	.SYNOPSIS
-	Fetches the devices records of the site identified by the given site uid.
+	Fetches the devices records with network interface information of the site identified by the given site uid.
 
 	.DESCRIPTION
-	Returns device settings, device type, device anti-virus status, device patch Status and UDF's.
+	Returns limited device information including network interface information for each device.
 
 	.PARAMETER SiteUid
 	Provide site uid which will be use to return this site devices.
