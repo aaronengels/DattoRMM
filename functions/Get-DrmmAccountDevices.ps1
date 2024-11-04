@@ -1,4 +1,4 @@
-﻿function Get-DrmmAccountDevices {
+function Get-DrmmAccountDevices {
 
 	<#
 	.SYNOPSIS
@@ -12,6 +12,7 @@
 	#>
 
 	# Function Parameters
+	[CmdletBinding(DefaultParameterSetName="Query")]
 	Param (
 		[Parameter(Mandatory=$False, ParameterSetName="FilterQuery")]
 		[String]$FilterId,
@@ -47,12 +48,12 @@
 
 	$Results = @()
 
-	$Results = do {
-		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest $RequestUri | ConvertFrom-Json
+	$Results = do {		
+		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/devices?max=$maxPage&page=$page" | ConvertFrom-Json
 		if ($Response) {
-			$nextPageUrl = $Response.pageDetails.nextPageUrl
-			$Response.devices
-			$page++
+			$nextPageUrl = $Response.pageDetails.nextPageUrl	
+			$Response.devices		
+			$page++			
 		}
 	}
 	until ($null -eq $nextPageUrl)
