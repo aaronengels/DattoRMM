@@ -40,9 +40,13 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 # Release notes
 
+## Version 1.0.0.33
+- Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
+- Added Get-DrmmJobResults (by mbmy)
+
 ## Version 1.0.0.32
 - Added support to pull activity logs (by Phill Holbrook)
-- Add PSCredential support for connecting Api (by Meelis Nigols)
+- Added PSCredential support for connecting Api (by Meelis Nigols)
 
 ## Version 1.0.0.31
 - Added Get-DevicesNeedingReboot (by Brian Killay)
@@ -56,16 +60,16 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 ## Version 1.0.0.26
 - Fixed Get-DrmmAuditDeviceSoftware
-- Update Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
-- Update Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
-- Create Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
-- Create Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
-- Update Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
-- Update Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
-- Update Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
-- Update Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
-- Update Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
-- Update Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
+- Created Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Created Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmCustomFilters.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmDefaultFilters.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmAccountDevices.ps1 (by Rob Gilbreath)
+- Updated Get-DrmmSiteDevices.ps1 (by Rob Gilbreath)
 
 ## Version 1.0.0.25
 - Added Get-DrmmSiteVariables (by Rob Gilbreath)
@@ -79,11 +83,11 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 ## Version 1.0.0.22
 - Added Set-DrmmApiParameters - You can now import the module first and add API parameters later.
-- Added Add-DrmmAlertMessage - Add a alert message based on the alert context provided by the API.
+- Added Add-DrmmAlertMessage - Add an alert message based on the alert context provided by the API.
 - Added Get-DrmmAuditESXi - To get audit data from ESXi hosts
 - Added Get-DrmmAuditPrinter - To get audit data from printers
-- Updated Get-DrmmAuditDeviceSoftware - Fixed API Request Url.
-- Updated Set-DrmmDeviceUdf - Fixed API Request Url.
+- Updated Get-DrmmAuditDeviceSoftware - Fixed API Request URL.
+- Updated Set-DrmmDeviceUdf - Fixed API Request URL.
 - Updated Set-DrmmSiteProxy - Fixed JSON request issue.
 - Updated Remove-DrmmSiteProxy - Fixed JSON request issue.
 - Updated Set-DrmmSiteProxy - Updated function parameters.
