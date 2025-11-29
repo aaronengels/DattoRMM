@@ -42,7 +42,7 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 ## Version 1.0.0.33
 - Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
-- Added Get-DrmmJobResults (by mbmy)
+- Added Get-DrmmJobResults (by Michael Young)
 
 ## Version 1.0.0.32
 - Added support to pull activity logs (by Phill Holbrook)
