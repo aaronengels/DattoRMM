@@ -14,10 +14,9 @@ function Get-DrmmAccountSites {
 
     # Function Parameters
     Param (
+        
         [Parameter(Mandatory = $False)]
-        [Switch]$noDeletedDevices,
-        [Parameter(Mandatory = $False)]
-        [string]$siteName
+        [Switch]$noDeletedDevices
     )
 
     # Declare Variables
@@ -25,21 +24,10 @@ function Get-DrmmAccountSites {
     $maxPage = 250
     $nextPageUrl = $null
     $page = 0
-    $RequestUri = "/v2/account/sites?max=$maxPage&page=$page"
-
-	# Process query params
-	$queryParams = New-Object System.Collections.Generic.List[System.String]
-	if ($siteName) { $queryParams.Add("&siteName=$siteName") }
-
-	# Append the query parameters to the RequestUri
-    if ($queryParams.Count -gt 0) {
-        $RequestUri += [string]::Join('', $queryParams)
-    }
-
     $Results = @()
 
     $results = do {
-        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest $RequestUri | ConvertFrom-Json
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/sites?max=$maxPage&page=$page" | ConvertFrom-Json
         if ($Response) {
             $nextPageUrl = $Response.pageDetails.nextPageUrl
             $Response.Sites
