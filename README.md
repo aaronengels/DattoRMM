@@ -40,7 +40,7 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 # Release notes
 
-## Version 1.0.0.33
+## Version 1.0.0.34
 - Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
 - Added Get-DrmmJobResults (by Michael Young)
 
