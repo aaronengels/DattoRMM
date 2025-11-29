@@ -1,4 +1,4 @@
-﻿function Get-DrmmAccountDevices {
+function Get-DrmmAccountDevices {
 
 	<#
 	.SYNOPSIS
@@ -13,16 +13,8 @@
 
 	# Function Parameters
 	Param (
-		[Parameter(Mandatory=$False, ParameterSetName="FilterQuery")]
-		[String]$FilterId,
-		[Parameter(Mandatory=$False, ParameterSetName="Query")]
-		[string]$hostname,
-		[Parameter(Mandatory=$False, ParameterSetName="Query")]
-		[string]$deviceType,
-		[Parameter(Mandatory=$False, ParameterSetName="Query")]
-		[string]$operatingSystem,
-		[Parameter(Mandatory=$False, ParameterSetName="Query")]
-		[string]$siteName
+		[Parameter(Mandatory=$False)]
+		[String]$FilterId
 	)
 
 	# Declare Variables
@@ -30,25 +22,13 @@
 	$maxPage = 250
 	$nextPageUrl = $null
 	$page = 0
-	$RequestUri = "/v2/account/devices?max=$maxPage&page=$page"
-
-	# Process query params
-	$queryParams = New-Object System.Collections.Generic.List[System.String]
-	if ($FilterId) { $queryParams.Add("&filterId=$FilterId") }
-	if ($hostname) { $queryParams.Add("&hostname=$hostname") }
-	if ($deviceType) { $queryParams.Add("&deviceType=$deviceType") }
-	if ($operatingSystem) { $queryParams.Add("&operatingSystem=$operatingSystem") }
-	if ($siteName) { $queryParams.Add("&siteName=$siteName") }
-
-	# Append the query parameters to the RequestUri
-    if ($queryParams.Count -gt 0) {
-        $RequestUri += [string]::Join('', $queryParams)
-    }
-
+	if ( $PSBoundParameters.ContainsKey("FilterId") ) {
+		$filterQuery = "&filterId=$FilterId"
+	}
 	$Results = @()
 
 	$Results = do {
-		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest $RequestUri | ConvertFrom-Json
+		$Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/devices?max=$maxPage&page=$page$filterQuery" | ConvertFrom-Json
 		if ($Response) {
 			$nextPageUrl = $Response.pageDetails.nextPageUrl
 			$Response.devices
