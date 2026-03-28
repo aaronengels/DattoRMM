@@ -60,7 +60,7 @@ function Get-DrmmActivityLogs {
 
 		$Response = New-ApiRequest -apiMethod "GET" -apiRequest $RequestUri | ConvertFrom-Json
 		If ($Response.pageDetails.nextPageUrl){
-			$RequestUri = $Response.pageDetails.nextPageUrl.split("api")[-1]
+			$RequestUri = ($Response.pageDetails.nextPageUrl -Split "api")[-1]
 			$Response.activities
 		}
 	
