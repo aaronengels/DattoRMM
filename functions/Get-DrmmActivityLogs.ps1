@@ -34,7 +34,7 @@ function Get-DrmmActivityLogs {
 
     )
 
-	$Epoch = Get-Date 1/1/1970
+	$Epoch = [DateTime]::ParseExact('19700101Z','yyyyMMddZ',$Null).ToUniversalTime()
 
 	$RequestUri = "/v2/activity-logs?"
 	$queryParams = New-Object System.Collections.Generic.List[System.String]
@@ -45,8 +45,8 @@ function Get-DrmmActivityLogs {
     if ($Actions) { $queryParams.Add("actions=$($Actions -join ',')") }
     if ($SiteIds) { $queryParams.Add("siteIds=$($SiteIds -join ',')") }
     if ($UserIds) { $queryParams.Add("userIds=$($UserIds -join ',')") }
-    if ($StartDateTime) { $queryParams.Add("from=$($StartDateTime.ToString('yyyy-MM-ddTHH:mm:ssZ'))") }
-    if ($EndDateTime) { $queryParams.Add("until=$($EndDateTime.ToString('yyyy-MM-ddTHH:mm:ssZ'))") }
+    if ($StartDateTime) { $queryParams.Add("from=$($StartDateTime.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))") }
+    if ($EndDateTime) { $queryParams.Add("until=$($EndDateTime.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))") }
     if ($Limit) { $queryParams.Add("size=$Limit") }
     if ($SortOrder) { $queryParams.Add("order=$SortOrder") }
 
@@ -81,7 +81,7 @@ function Get-DrmmActivityLogs {
 		$ActivityLog.PSObject.Properties.Remove("site")
 
 		# Convert date to a datetime object
-		$ActivityLog.date = $Epoch.AddSeconds($ActivityLog.date)
+		$ActivityLog.date = $Epoch.AddSeconds($ActivityLog.date).ToLocalTime()
 
 		# Iterate through details and convert applicable dates to datetime objects
 		ForEach ($Detail in $ActivityLog.details.PSObject.Properties.Name){
@@ -90,7 +90,7 @@ function Get-DrmmActivityLogs {
 				($Detail -match "start" -or $Detail -match "end" -or $Detail -match "time" -or $Detail -match "date") -and
 				$ActivityLog.details.$Detail -as [bigint]
 			){
-				$ActivityLog.details.$Detail = $Epoch.AddMilliseconds($ActivityLog.details.$Detail)
+				$ActivityLog.details.$Detail = $Epoch.AddMilliseconds($ActivityLog.details.$Detail).ToLocalTime()
 			}
 		}
 	}
