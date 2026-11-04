@@ -25,6 +25,7 @@ function Set-DrmmSiteProxy {
 	#>
 
 	# Function Parameters
+	[CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = 'Medium')]
     Param (
         [Parameter(Mandatory=$True)] 
         $siteUid,
@@ -62,6 +63,7 @@ function Set-DrmmSiteProxy {
 	$Body = $proxySettings | ConvertTo-Json
 	
 	# API Request
+	if (-not $PSCmdlet.ShouldProcess("site $siteUid", "Set proxy settings ($proxyType $($proxyHost):$proxyPort)")) { return }
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/settings/proxy" -apiRequestBody $Body | ConvertFrom-Json
 
 }
