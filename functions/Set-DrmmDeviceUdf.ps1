@@ -283,7 +283,12 @@ function Set-DrmmDeviceUdf {
 			# The v2 endpoint takes every UDF value as text. Convert the common types explicitly so the
 			# request body is the same on Windows PowerShell 5.1 and PowerShell 7.
 			$value = $entry.Value
-			if ($null -eq $value -or $value -is [string]) {
+			if ($null -eq $value) {
+				# Send '' rather than null: tested live, the API ignores a JSON null and keeps the
+				# current value, while an empty string clears the field.
+				$udfValue = ''
+			}
+			elseif ($value -is [string]) {
 				$udfValue = $value
 			}
 			elseif ($value -is [bool]) {
