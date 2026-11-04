@@ -6,7 +6,15 @@ function Get-DrmmActivityLogs {
 
 	.DESCRIPTION
 	Returns the RMM activity logs.
-	
+
+	.PARAMETER SearchQuery
+	Optional advanced search, using the same syntax as the Activity Log search field in the Datto RMM UI:
+	single words, phrases, wildcards, boolean operators, fuzzy and grouped searches. Requires Datto RMM 15.0.0 or later.
+	See https://rmm.datto.com/help/en/Content/3NEWUI/Analytics/ActivityLog.htm
+
+	.EXAMPLE
+	Get-DrmmActivityLogs -StartDateTime (Get-Date).AddDays(-1) -SearchQuery 'patch'
+
 	#>
 
 	# Function Parameters
@@ -30,7 +38,9 @@ function Get-DrmmActivityLogs {
         [int]$Limit,
 
 		[ValidateSet('asc','desc')]
-		[string]$SortOrder
+		[string]$SortOrder,
+
+		[string]$SearchQuery
 
     )
 
@@ -49,6 +59,7 @@ function Get-DrmmActivityLogs {
     if ($EndDateTime) { $queryParams.Add("until=$($EndDateTime.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'))") }
     if ($Limit) { $queryParams.Add("size=$Limit") }
     if ($SortOrder) { $queryParams.Add("order=$SortOrder") }
+    if ($SearchQuery) { $queryParams.Add("searchQuery=$([uri]::EscapeDataString($SearchQuery))") }
 
     # Append the query parameters to the RequestUri
     if ($queryParams.Count -gt 0) {
@@ -60,7 +71,9 @@ function Get-DrmmActivityLogs {
 
 		$Response = New-ApiRequest -apiMethod "GET" -apiRequest $RequestUri | ConvertFrom-Json
 		If ($Response.pageDetails.nextPageUrl){
-			$RequestUri = ($Response.pageDetails.nextPageUrl -Split "api")[-1]
+			# Keep everything after the host's "/api" prefix. Splitting on "api" and taking the last piece
+			# broke when the query itself contained "api" (e.g. a searchQuery such as "rapid").
+			$RequestUri = $Response.pageDetails.nextPageUrl -replace '^https?://[^/]+/api', ''
 			$Response.activities
 		}
 	
