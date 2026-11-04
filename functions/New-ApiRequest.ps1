@@ -72,27 +72,47 @@ function New-ApiRequest {
         }
         catch {
             $errorObject = $_
-            $exceptionError = $_.Exception.Message
 
-            switch ($exceptionError) {
-                'The remote server returned an error: (429).' {
+            # Branch on the HTTP status code rather than the exception message. The message text differs
+            # between Windows PowerShell 5.1 (WebException) and PowerShell 7 (HttpResponseException), and
+            # also depends on the reason phrase the server sends, so matching on it only worked on 5.1.
+            # Both exception types expose .Response.StatusCode; it is absent when no response arrived
+            # (DNS failure, connection refused), which falls through to default as before.
+            $statusCode = $null
+            if ($errorObject.Exception.Response) {
+                $statusCode = [int]$errorObject.Exception.Response.StatusCode
+            }
+
+            switch ($statusCode) {
+                429 {
                     Write-Warning 'New-ApiRequest : API rate limit breached, sleeping for 60 seconds'
                     Start-Sleep -Seconds 60
                 }
-                'The remote server returned an error: (403) Forbidden.' {
+                403 {
                     Write-Warning 'New-ApiRequest : AWS DDOS protection breached, sleeping for 5 minutes'
                     Start-Sleep -Seconds 300
                 }
-                'The remote server returned an error: (404) Not Found.' {
+                404 {
                     Write-Error "New-ApiRequest : $apiRequest not found!"
 					return
                 }
-                'The remote server returned an error: (504) Gateway Timeout.' {
+                504 {
                     Write-Warning "New-ApiRequest : Gateway Timeout, sleeping for 60 seconds"
                     Start-Sleep -Seconds 60
                 }
                 default {
-                    Write-Error $errorObject
+                    # Same message 5.1 has always produced (the API's error body, else the exception text),
+                    # written the same way on both editions.
+                    $errorMessage = $errorObject.Exception.Message
+                    if ($errorObject.ErrorDetails -and -not [string]::IsNullOrWhiteSpace($errorObject.ErrorDetails.Message)) {
+                        $errorMessage = $errorObject.ErrorDetails.Message.Trim()
+                        # PowerShell 7 pretty-prints a JSON error body across several lines; 5.1 keeps it on one.
+                        # Re-compress it so both editions log the same single line.
+                        if ($PSVersionTable.PSEdition -eq 'Core') {
+                            try { $errorMessage = $errorMessage | ConvertFrom-Json | ConvertTo-Json -Compress -Depth 10 } catch { }
+                        }
+                    }
+                    Write-Error -Message $errorMessage
 					return
                 }
             }

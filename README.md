@@ -40,6 +40,8 @@ For more information on the REST API properties, go to https://merlot-api.centra
 
 # Release notes
 
+## Unreleased
+- Updated New-ApiRequest - Handles errors by HTTP status code, so the 429/504 retries, the 403 wait and the 404 message now work on PowerShell 7 as well as Windows PowerShell 5.1. Other errors are reported with the same message on both.
 ## Version 1.0.0.34
 - Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
 - Added Get-DrmmJobResults (by Michael Young)
