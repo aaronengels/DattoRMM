@@ -41,8 +41,9 @@ For more information on the REST API properties, go to https://merlot-api.centra
 # Release notes
 
 ## Unreleased
-- Updated New-ApiRequest - Handles errors by HTTP status code, so the 429/504 retries, the 403 wait and the 404 message now work on PowerShell 7 as well as Windows PowerShell 5.1. Other errors are reported with the same message on both.
-- Updated Set-DrmmDeviceUdf - New -Udf parameter sets any of the 300 UDFs, e.g. `-Udf @{ 5 = 'value'; 120 = 'value' }`. The -udf1 to -udf30 parameters still work as before but are planned for deprecation; new scripts should use -Udf.
+- Updated New-ApiRequest - Handles errors by HTTP status code, so the 429/504 retries, the 403 wait and the 404 message now work on PowerShell 7 as well as Windows PowerShell 5.1. Other errors are reported with the same message on both (by Kyle Elliott)
+- Updated Set-DrmmDeviceUdf - New -Udf parameter sets any of the 300 UDFs, e.g. `-Udf @{ 5 = 'value'; 120 = 'value' }`. The -udf1 to -udf30 parameters still work as before but are planned for deprecation; new scripts should use -Udf (by Kyle Elliott)
+
 ## Version 1.0.0.34
 - Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
 - Added Get-DrmmJobResults (by Michael Young)
