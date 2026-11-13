@@ -8,6 +8,10 @@ function Set-DrmmDeviceUdf {
 	Any user defined field supplied with an empty value will be set to null.
 	All user defined fields not supplied will retain their current value
 
+	Use -Udf to set any of the 300 user defined fields. The -udf1 to -udf30 parameters are kept so
+	existing scripts keep working, but they only reach the first 30 fields and are planned for
+	deprecation in a future release. New scripts should use -Udf.
+
 	.PARAMETER deviceUid
 	Provide device uid which will be used to set UDF(s)
 
@@ -101,6 +105,25 @@ function Set-DrmmDeviceUdf {
 	.PARAMETER udf30
 	When provided it will set user defined field 30
 
+	.PARAMETER Udf
+	Hashtable of user defined fields to set, keyed by field number (1-300). Keys can be numbers (5)
+	or names ('udf5'). A $null or empty value clears that field.
+	Values are sent as text, as the API expects: booleans as 'true'/'false', dates as 'yyyy-MM-dd'
+	(the format Datto uses for Date-type UDFs), and numbers in invariant culture (e.g. 1.5, never 1,5).
+	Can be combined with -udf1 to -udf30, but the same field can't be supplied twice.
+
+	.EXAMPLE
+	Set-DrmmDeviceUdf -deviceUid $uid -Udf @{ 5 = 'Offboarded'; 120 = (Get-Date); 'udf250' = '' }
+	Sets UDF 5 and UDF 120 (as today's date) and clears UDF 250.
+
+	.EXAMPLE
+	Set-DrmmDeviceUdf -deviceUid $uid -udf5 'Offboarded'
+	Legacy form, still supported for UDFs 1-30.
+
+	.NOTES
+	Deprecation planned: -udf1 to -udf30 will be removed in a future release in favour of -Udf.
+	Existing callers should move to -Udf @{ <number> = <value> }.
+
 	#>
 
 	# Function Parameters
@@ -108,6 +131,7 @@ function Set-DrmmDeviceUdf {
         [Parameter(Mandatory=$True)] 
         $deviceUid,
 
+		# Legacy: -udf1 to -udf30. Kept for existing scripts; planned for deprecation in favour of -Udf.
 		[Parameter(Mandatory=$False)]
 		$udf1,
 
@@ -196,7 +220,13 @@ function Set-DrmmDeviceUdf {
 		$udf29,
 
 		[Parameter(Mandatory=$False)]
-		$udf30
+		$udf30,
+
+		# Any of the 300 UDFs, keyed by number. Preferred over -udf1..-udf30.
+		# Declared last so the positions of deviceUid and udf1..udf30 don't change for existing callers.
+		[Parameter(Mandatory=$False)]
+		[System.Collections.IDictionary]
+		$Udf
     )
 
 	# Declare Variables
@@ -234,6 +264,51 @@ function Set-DrmmDeviceUdf {
 	If ($PSBoundParameters.ContainsKey('udf28')) {$Udfs.Add('udf28',$udf28)}
 	If ($PSBoundParameters.ContainsKey('udf29')) {$Udfs.Add('udf29',$udf29)}
 	If ($PSBoundParameters.ContainsKey('udf30')) {$Udfs.Add('udf30',$udf30)}
+
+	# Add UDFs provided through -Udf (any of 1-300). Everything is validated before the API is called.
+	If ($PSBoundParameters.ContainsKey('Udf') -and $null -ne $Udf) {
+		$maxUdf = 300  # Datto RMM 14.9.0 raised the limit from 30 to 300 UDFs per device
+		# Walk the entries rather than indexing $Udf[$key]: on an [ordered] dictionary an integer key
+		# is read as a position, so $Udf[1] would return the second entry instead of UDF 1.
+		foreach ($entry in @($Udf.GetEnumerator())) {
+			$keyText = ([string]$entry.Key).Trim()
+			if ($keyText -notmatch '^(?i)(?:udf)?([1-9][0-9]{0,2})$' -or [int]$Matches[1] -gt $maxUdf) {
+				throw "Set-DrmmDeviceUdf : -Udf key '$keyText' is not a valid UDF. Use a number from 1 to $maxUdf (e.g. 5) or a name from udf1 to udf$maxUdf (e.g. 'udf5')."
+			}
+			$udfName = 'udf{0}' -f [int]$Matches[1]
+			if ($Udfs.Contains($udfName)) {
+				throw "Set-DrmmDeviceUdf : $udfName was supplied more than once (check -$udfName and the keys in -Udf, e.g. 5 and 'udf5'). Supply each UDF once."
+			}
+
+			# The v2 endpoint takes every UDF value as text. Convert the common types explicitly so the
+			# request body is the same on Windows PowerShell 5.1 and PowerShell 7.
+			$value = $entry.Value
+			if ($null -eq $value) {
+				# Send '' rather than null: tested live, the API ignores a JSON null and keeps the
+				# current value, while an empty string clears the field.
+				$udfValue = ''
+			}
+			elseif ($value -is [string]) {
+				$udfValue = $value
+			}
+			elseif ($value -is [bool]) {
+				$udfValue = $value.ToString().ToLowerInvariant()
+			}
+			elseif ($value -is [datetime]) {
+				$udfValue = $value.ToString('yyyy-MM-dd', [System.Globalization.CultureInfo]::InvariantCulture)
+			}
+			elseif ($value -is [datetimeoffset]) {
+				$udfValue = $value.Date.ToString('yyyy-MM-dd', [System.Globalization.CultureInfo]::InvariantCulture)
+			}
+			elseif ($value -is [System.Collections.IEnumerable]) {
+				throw "Set-DrmmDeviceUdf : -Udf value for $udfName is a collection. A UDF holds a single value; join it into one string first (e.g. -join ', ')."
+			}
+			else {
+				$udfValue = [System.Convert]::ToString($value, [System.Globalization.CultureInfo]::InvariantCulture)
+			}
+			$Udfs.Add($udfName, $udfValue)
+		}
+	}
 
 	# Convert to JSON
 	$Body = $Udfs | ConvertTo-Json
