@@ -68,7 +68,7 @@ function New-ApiRequest {
         try {
             $response = Invoke-WebRequest -UseBasicParsing @params
             $content = [System.Text.Encoding]::UTF8.GetString($response.RawContentStream.ToArray())
-            return $content  # Return successful response content and exit the function
+            If ([String]::IsNullOrEmpty($content)) {return $Null} Else {return $content}  # Return successful response content and exit the function
         }
         catch {
             $errorObject = $_
