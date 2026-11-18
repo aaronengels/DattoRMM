@@ -68,7 +68,9 @@ function New-ApiRequest {
         try {
             $response = Invoke-WebRequest -UseBasicParsing @params
             $content = [System.Text.Encoding]::UTF8.GetString($response.RawContentStream.ToArray())
-            If ([String]::IsNullOrEmpty($content)) {return $Null} Else {return $content}  # Return successful response content and exit the function
+            # Return successful response content and exit the function. An empty response sends nothing down the pipeline:
+            # assigning the result still gives $null (no console noise), and '| ConvertFrom-Json' isn't handed a null to bind
+            If ([String]::IsNullOrEmpty($content)) {return} Else {return $content}
         }
         catch {
             $errorObject = $_

@@ -64,6 +64,7 @@ For more information on the REST API properties, go to https://merlot-api.centra
 - Added Get-DrmmSystemRequestRate (by Kyle Elliott)
 - Added Get-DrmmSystemPagination (by Kyle Elliott)
 - Updated Get-DrmmActivityLogs - Added -SearchQuery and fixed nextPageUrl parsing (by Kyle Elliott)
+- Fixed New-ApiRequest - An empty response now returns nothing instead of $null, so cmdlets that pipe the result to ConvertFrom-Json (site/account variable writes, Remove-DrmmSiteProxy) no longer throw after a successful call. Assigning the result still gives $null, with no console noise (by Kyle Elliott)
 
 ## Version 1.0.0.34
 - Fixed clear Set-DrmmDeviceWarranty issue (by Jonathan Buller)
