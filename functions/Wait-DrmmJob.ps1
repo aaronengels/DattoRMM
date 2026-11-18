@@ -90,12 +90,13 @@ function Wait-DrmmJob {
 			}
 		}
 
-		if ((Get-Date).AddSeconds($PollSeconds) -gt $deadline) {
+		$remaining = ($deadline - (Get-Date)).TotalSeconds
+		if ($remaining -le 0) {
 			$target = if ($PSBoundParameters.ContainsKey('deviceUid')) { "on device $deviceUid" } else { '' }
 			Write-Error "Wait-DrmmJob : job $jobUid $target did not finish within $TimeoutSeconds seconds (last status: $lastStatus). Check that the device is online, or wait longer with -TimeoutSeconds."
 			return
 		}
 		Write-Verbose "Wait-DrmmJob : job $jobUid status $lastStatus; checking again in $PollSeconds seconds"
-		Start-Sleep -Seconds $PollSeconds
+		Start-Sleep -Milliseconds ([int][math]::Ceiling([math]::Min($PollSeconds, $remaining) * 1000))
 	}
 }
