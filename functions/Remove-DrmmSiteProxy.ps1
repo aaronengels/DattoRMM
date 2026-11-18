@@ -10,6 +10,7 @@ function Remove-DrmmSiteProxy {
 	#>
 
 	# Function Parameters
+	[CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = 'Medium')]
     Param (
         [Parameter(Mandatory=$True)] 
         $siteUid
@@ -19,6 +20,7 @@ function Remove-DrmmSiteProxy {
 	$apiMethod = 'DELETE'
 
 	# Remove proxy settings
+	if (-not $PSCmdlet.ShouldProcess("site $siteUid", 'Remove proxy settings')) { return }
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid/settings/proxy" | ConvertFrom-Json
 
 }

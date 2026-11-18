@@ -22,9 +22,15 @@ function Set-DrmmSite {
 	.PARAMETER SplashtopAutoInstall
 	Will switch on autoinstall spashtop.
 
+	.NOTES
+	The API resets every setting that isn't sent. Settings you leave out are cleared: description
+	and notes become empty, onDemand and splashtopAutoInstall become false.
+	To change only some settings and keep the rest, use Update-DrmmSite.
+
 	#>
 
 	# Function Parameters
+	[CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = 'Medium')]
     Param (
 
         [Parameter(Mandatory=$True)] 
@@ -61,6 +67,7 @@ function Set-DrmmSite {
 	$Body = $updateSiteRequest | ConvertTo-Json
 
 	# Create Site and return results
+	if (-not $PSCmdlet.ShouldProcess("site $siteUid", "Update site settings ($(@($updateSiteRequest.Keys | Sort-Object) -join ', '))")) { return }
 	return New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/site/$siteUid" -apiRequestBody $Body | ConvertFrom-Json
 
 }

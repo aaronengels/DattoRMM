@@ -10,13 +10,23 @@ function Get-DrmmAccountSites {
 	.PARAMETER NoDeletedDevices
 	Do not return the 'Deleted Devices' site settings.
 
+	.PARAMETER SiteName
+	Optional. Return only sites whose name contains this value (partial match).
+
+	.EXAMPLE
+	Get-DrmmAccountSites -SiteName 'Contoso' -noDeletedDevices
+
 	#>
 
     # Function Parameters
     Param (
-        
+
         [Parameter(Mandatory = $False)]
-        [Switch]$noDeletedDevices
+        [Switch]$noDeletedDevices,
+
+        [Parameter(Mandatory = $False)]
+        [ValidateNotNullOrEmpty()]
+        [String]$SiteName
     )
 
     # Declare Variables
@@ -24,10 +34,15 @@ function Get-DrmmAccountSites {
     $maxPage = 250
     $nextPageUrl = $null
     $page = 0
+    $filterQuery = ''
+    if ($PSBoundParameters.ContainsKey('SiteName')) {
+        # URL-encoded so spaces and symbols in the name are sent intact
+        $filterQuery = '&siteName={0}' -f [uri]::EscapeDataString($SiteName)
+    }
     $Results = @()
 
     $results = do {
-        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/sites?max=$maxPage&page=$page" | ConvertFrom-Json
+        $Response = New-ApiRequest -apiMethod $apiMethod -apiRequest "/v2/account/sites?max=$maxPage&page=$page$filterQuery" | ConvertFrom-Json
         if ($Response) {
             $nextPageUrl = $Response.pageDetails.nextPageUrl
             $Response.Sites
